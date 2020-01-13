@@ -1,10 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 import psycopg2
+from datetime import datetime
 
-conn = psycopg2.connect(dbname='AirPlaneTest', user='denoctis',
-                        password='ArchDemons', host='localhost')
-cursor = conn.cursor()
+#conn = psycopg2.connect(dbname='AirPlaneTest', user='denoctis',
+#                        password='ArchDemons', host='localhost')
+#cursor = conn.cursor()
 
 preficsUrl = 'https://ru.flightaware.com/live/fleet/'
 
@@ -25,6 +26,8 @@ for prefLink in preficsLinks:
     routs = routs[2::]
     for route in routs:
         routeData = route.findAll('td')
+        today = datetime.now()
+        print(str(datetime.date(today)))
         print(routeData[2].text + '->' + routeData[3].text)
         flightDataUrl = 'https://ru.flightaware.com' + routeData[0].find('a').get('href') + '/tracklog'
         flightDataSource = requests.get(flightDataUrl)
@@ -33,12 +36,17 @@ for prefLink in preficsLinks:
         dateConteiner = flightDataSoup.find('div', {'class': 'row'})
         date = dateConteiner.findAll('a')[1].text.split(' ')
         date = date[4] + ' ' + date[5] + ' ' + date[6]
-        print(date)
+        #print(date)
         dataTable = flightDataSoup.find('table', {'id': 'tracklogTable'})
         dataRows = dataTable.findAll('tr')
+        dataRows = dataRows[1::]
         for dataRow in dataRows:
+            tds = dataRow.findAll('td');
+            
             data = dataRow.findAll('span', {'class': 'show-for-medium-up'})
             if len(data) == 5:
+                direction = tds[3].text.split(' ')[1]
+                print(direction[:-1:])
                 latitude = data[3].text.split(',')
                 if len(latitude) == 2:
                     latitude = latitude[0]+latitude[1]
