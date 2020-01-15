@@ -46,7 +46,7 @@
           "esri/Graphic"
         ], function(Map, SceneView, GraphicsLayer, Graphic) {
           var map = new Map({
-            basemap: "streets",
+            basemap: "topo",
             ground: "world-elevation"
           });
 
