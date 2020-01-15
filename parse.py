@@ -77,10 +77,12 @@ while True:
             dataTable = flightDataSoup.find('table', {'id': 'tracklogTable'})
             dataRows = dataTable.findAll('tr')
             dataRows = dataRows[1::]
+            number = 1
             cursor.execute("select count(*) from DataFlight where id_route="+str(idRoute)+" ;")
             for row in cursor.fetchone():
                 if row != 0:
-                    dataRows = dataRows[row+1::] 
+                    dataRows = dataRows[row+1::]
+                    number = row+1 
             for dataRow in dataRows:
                 tds = dataRow.findAll('td');
                 
@@ -99,9 +101,10 @@ while True:
                     latitude = data[1].text
                     longitude = data[2].text
                     total_intensity = 0
-                    print (latitude + ' ' + longitude + ' ' + altitude)
-                    cursor.execute("insert into DataFlight values("+latitude+","+longitude+","+altitude+","+str(total_intensity)+","+direction+","+str(idRoute)+");")
+                    print (latitude + ' ' + longitude + ' ' + altitude + ' ' + str(number));
+                    cursor.execute("insert into DataFlight values("+latitude+","+longitude+","+altitude+","+str(total_intensity)+","+direction+","+str(idRoute)+","+str(number)+");")
                     conn.commit()
+                    number = number + 1
             print('\n')
     conn.close()
     time.sleep(3600)

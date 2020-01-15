@@ -9,20 +9,26 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <request.h>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QDebug>
 
 
-
-class GetRequestHandler
+class GetRequestHandler: public QObject
 {
+    Q_OBJECT
 public:
     GetRequestHandler(QSqlDatabase* db, Request* request);
     QString getRoutesHandler();
     QString getDataFlightHendler();
+    QString getTotal();
 
-
+private slots:
+    void answer(QNetworkReply *answer);
 private:
     QSqlDatabase* DB_;
     Request* Request_;
+    QNetworkAccessManager manager;
 };
 
 #endif // GETREQUESTHANDLER_H

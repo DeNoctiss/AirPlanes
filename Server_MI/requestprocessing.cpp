@@ -39,6 +39,8 @@ void RequestProcessing::GetRequest(){
         response=handler.getRoutesHandler();
     if(Request_->GetPath()=="/dataflight.json")
         response=handler.getDataFlightHendler();
+    if(Request_->GetPath()=="/total.json")
+        response=handler.getTotal();
     if(response.isEmpty()){
         Socket_->write("HTTP/1.1 404 \r\n\r\nBad request");
     }
