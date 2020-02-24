@@ -34,11 +34,10 @@
       #menu{
         position: fixed; /* положение */
         right: 0; /* отступ слева */
-        background: green; /* цвет фона */
         width: 30px; /* ширина блока */
         height: 40px; /* высота блока */
         font: 14px Arial; /* размер и тип шрифта */
-        color: #fff; /* цвет текста */
+        color: #000; /* цвет текста */
         text-align: center; /* выравнивание текста по центру */
         padding: 0px; /* отступы от границ внутри блока */
 
@@ -49,15 +48,18 @@
 
         -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
         -moz-border-radius: 0 5px 5px 0;
-        border-radius: 0 5px 5px 0;
+        border-radius: 5px 0px 0px 5px;
+
+        background: rgb(226,156,28);
+        background: linear-gradient(90deg, rgba(226,156,28,1) 28%, rgba(221,188,11,1) 100%);
       }
 
       #hiddenMenu {
         position: fixed; /* положение */
-        right: -220px; /* отступ слева */
-        background: lavender; /* цвет фона */
+        right: -523px; /* отступ слева */
+        background: #f9f1c5; /* цвет фона */
         color: #000; /* цвет текста */
-        width: 200px; /* ширина блока */
+        width: 500px; /* ширина блока */
         height: 100vh; /* высота блока */
         padding: 10px; /* отступы от границ внутри блока */
         text-align: left; /* выравнивание текста */
@@ -70,27 +72,191 @@
         -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
         -moz-border-radius: 0 5px 5px 0;
         border-radius: 0 5px 5px 0;
+        top: 0;
+        border-left: solid 3px #ddbc0b;
+        overflow-y: scroll;
       }
       
       #menu:hover {
-        right: 220px; /* при наведении выдвигается на скрытые 200px + 20px отступы */
+        right: 523px; /* при наведении выдвигается на скрытые 200px + 20px отступы */
       }
 
       #menu:hover #hiddenMenu {
         right:0px;
       }
+
+      #race {
+        width: 90%;
+        height: 30px;
+        font-size: 20px;
+      }
+
+      #info{
+        height: 60vh;
+        width: 80%;
+        margin: auto;
+        margin-top: 10px;
+        font-size: 23px;
+      }
+
+      .lable{
+        font-size: 23px;
+        color: rgb(120,120,120);
+      }
+      
+
+      #latitude, #longitude, #altitude, #total{
+        width: 50%;
+        text-align: center;
+        font-size: 23px;
+      }
+
+      #total{
+        line-height: 30px; 
+      }
+
+      canvas {
+        width: 100%;
+      }
+
+      #graf {
+        height: 250px;
+        width: 500px;
+      }
+
+      #controlsContainer{
+        width: 260px;
+        height: 80px;
+        background-color: rgb(226,156,28);
+        position: absolute;
+        margin-left: 55px;
+        top: 15px;
+        padding: 5px;
+        background: rgb(226,156,28);
+        background: linear-gradient(0deg, rgba(226,156,28,1) 28%, rgba(249,241,197,1) 100%);
+        border: solid 2px black;
+        border-radius: 10px;
+      }
+
+      .start, .prev, .next, .first, .last, .stop{
+        border-radius: 100%;
+        height: 48px;
+        width: 48px;
+        float: left;
+        background-position: center,center;
+        margin-left: 3px;
+      }
+
+      .start {
+        background-image: url(./start.png);
+      }
+
+      .prev {
+        background-image: url(./prev.png);
+      }
+
+      .next {
+        background-image: url(./next.png);
+      }
+
+      .first {
+        background-image: url(./first.png);
+      }
+
+      .last {
+        background-image: url(./last.png);
+      }
+
+      .stop {
+        background-image: url(./stop.png);
+      }
+
+      .start:hover, .prev:hover, .next:hover, .first:hover, .last:hover, .stop:hover {
+        background-color: #f9f1c5;
+      }
+
+      #datepickerContainer{
+        margin-left: 55px;
+
+      }
+
+      #datePicker{
+        width: 150px;
+        border-radius: 10px;
+        margin-top: 5px;
+      }
+
+      #takeoff, #landing{
+        float: left;
+        width: 49%;
+      }
+
+      #info table {
+        margin-top: 30px;
+      }
+
+      #info table td {
+        height: 20px;
+      }
+
     </style>
   </head>
 
   <body>
     <div id="viewDiv"></div>
-    <div id="menu">
-      <div id="hiddenMenu"></div>
+    <div id="menu"> <b> << </b>
+      <div id="hiddenMenu">
+        <div id="info">
+          <div id="race" align="center">Race: <b id="raceValue"></b></div>
+          <hr>
+          <table>
+            <tr>
+              <td class="lable" align="left">Latitute:</td>
+              <td id="latitude" align="right"></td>
+            </td>
+            <tr>
+              <td class="lable" align="left">Longitude:</td>
+              <td id="longitude" align="right"></td>
+            </tr>
+            <tr>
+              <td class="lable" align="left">Altitude:</td>
+              <td id="altitude" align="right"></td>
+            </tr>
+            <tr>
+              <td class="lable" align="left">Total intensity:</td>
+              <td id="total" align="right"></td>
+            </tr>
+          </table>
+          <hr>
+          <div>
+            <div id="takeoff">
+              <div class="lable" align="center">Takeoff:</div>
+              <div id="takeoffValue" align="center"></div>
+            </div>
+            <div id="landing">
+              <div class="lable" align="center">Landing:</div>
+              <div id="landingValue" align="center"></div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div id="graf">
+          <canvas id=canvas></canvas>
+        </div>
+      </div>
     </div>
-    <div id="animation">
-      <button id="start">Start</button>
+    <div id="controlsContainer">
+      <div id="animationMenu">
+        <div class="first"></div>
+        <div class="prev"></div>
+        <div class="start"></div>
+        <div class="next"></div>
+        <div class="last"></div>  
+      </div>
+      <div id="datepickerContainer">
+        <input id="datePicker" type="date" name="datePicker" value="2020-02-22">
+      </div>
     </div>
-    <div id="graf"></div>
   </body>
   <script type="text/javascript" src="plane.js"></script>
   <script type="text/javascript" src="main.js"></script>

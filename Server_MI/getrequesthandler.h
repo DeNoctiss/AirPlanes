@@ -22,6 +22,7 @@ public:
     QString getRoutesHandler();
     QString getDataFlightHendler();
     QString getTotal();
+    QString getRoutesDay();
 
 private slots:
     void answer(QNetworkReply *answer);

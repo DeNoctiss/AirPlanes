@@ -98,6 +98,29 @@ QString GetRequestHandler::getTotal()
     return QString(doc.toJson());
 }
 
+QString GetRequestHandler::getRoutesDay()
+{
+    QJsonArray routes;
+    QSqlQuery* query = new QSqlQuery(*DB_);
+    QString date = Request_->GetCgi("date");
+    if(query->exec("select Route.id, Route.race, Route.from_, Route.to_, Date.date from Route join Date ON Date.date = '"+date+"' where date.id = route.date_id;")){
+        while (query->next()) {
+            QJsonObject route;
+            route["id"]=query->value(0).toString();
+            route["race"]=query->value(1).toString();
+            route["from"]=query->value(2).toString();
+            route["to"]= query->value(3).toString();
+            route["date"]=query->value(4).toString();
+            routes.append(route);
+
+        }
+    }
+    QJsonDocument doc;
+    doc.setArray(routes);
+    delete  query;
+    return  QString(doc.toJson());
+}
+
 void GetRequestHandler::answer(QNetworkReply *answer)
 {
     qDebug() << answer->readAll();
