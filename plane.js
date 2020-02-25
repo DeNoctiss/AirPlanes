@@ -5,6 +5,31 @@ class AirPlane{
 		this.race = race;
 		this.from_ = from_;
 		this.to_ = to_;
+		this.radiusCheck = {
+			2: 4.32,
+			3: 2.55,
+			4: 1.44,
+			5: 0.68,
+			6: 0.33,
+			7: 0.18,
+			8: 0.08,
+			9: 0.04,
+			10: 0.03,
+			11: 0.02,
+			12: 0.01,
+			13: 0.003,
+			14: 0.0013,
+			15: 0.0007,
+			16: 0.0003,
+			17: 0.0001,
+			18: 0.00009,
+			19: 0.00004,
+			20: 0.00002,
+			21: 0.00001,
+			22: 0.000004,
+			23: 0.000001,
+			24: 0.0000007
+		};
 		this.urls = ["https://3.downloader.disk.yandex.ru/preview/b07e01230410177d4edb9e53fa3d089f26c81b4a04fa09e22a27613e7f41b4ce/inf/CSimhLCXPz-JG3-n_5lrwpmBOZXae9LLsTbJuMbStH_sLg5qALFHREOOH7z4gLaIvWTUuv0BSo3rl7WmQKGctw%3D%3D?uid=715697552&filename=0.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=715697552&tknv=v2&size=1284x669", //0
           			  "https://3.downloader.disk.yandex.ru/preview/6de6f5f2db12b0f3f8c1785e3b6e551fc62eb2cd1e5646e451c9c54eac602467/inf/CSimhLCXPz-JG3-n_5lrwgMeh4PCImRT3NdG-nQoVi_Lo7ghoJ7NXJ5Dv_-p8NCUuEFRdCIj1KcCjeIuLlTmfA%3D%3D?uid=715697552&filename=15.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=715697552&tknv=v2&size=1284x669", //15
 			          "https://2.downloader.disk.yandex.ru/preview/7c30d001709033aadd5491e0fbb3a5821fa5bd790a5c399e157924f3497c2c74/inf/PJsdFZsUdt7JcB1q-tqIkxQ0gUH6YJ_FhnsdgfyRcVFdpdYtDa7x4Z_nDxQZd4trwE1C7Sv5pVLNQ-J5flRRzA%3D%3D?uid=715697552&filename=30.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=715697552&tknv=v2&size=1284x669", //30
@@ -167,7 +192,7 @@ class AirPlane{
 	clickCheck(longitude,latitude,zoom){
 		let distance = Math.sqrt(((longitude - this.longitudes[this.curPos]) * (longitude - this.longitudes[this.curPos])) + ((latitude - this.latitudes[this.curPos]) * (latitude - this.latitudes[this.curPos])));
 		let r = (10 - zoom)*0.04 +0.03;
-		return distance < r;
+		return distance < this.radiusCheck[zoom];
 	}
 
 	next(){

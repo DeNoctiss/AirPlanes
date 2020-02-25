@@ -112,7 +112,7 @@ window.onload = function () {
                 //AirPlanes[chekcedInd].draw(graphicsLayer, pointGraphic);
                 pathLayer.removeAll();
               }
-              for(let i = 0; i<AirPlanes.length; i++){
+              for(let i = AirPlanes.length-1; i>=0; i--){
                 if(AirPlanes[i].clickCheck(event.mapPoint.longitude, event.mapPoint.latitude, Math.round(view.zoom))){
                   pathLayer.removeAll();
                   AirPlanes[i].checked = true;
