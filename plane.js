@@ -1,10 +1,11 @@
 class AirPlane{
-	constructor(id, race, from_, to_){
+	constructor(id, race, from_, to_, checkLayer_){
 		this.checked = false;
 		this.id = id;
 		this.race = race;
 		this.from_ = from_;
 		this.to_ = to_;
+		this.checkLayer= checkLayer_
 		this.radiusCheck = {
 			2: 4.32,
 			3: 2.55,
@@ -148,6 +149,11 @@ class AirPlane{
 		        //url: "0.svg",
 		        width: 30
 		      };
+		      pointGraphic.geometry = point;
+		      pointGraphic.symbol = markerSymbol;
+
+		      this.checkLayer.removeAll();
+		      this.checkLayer.add(pointGraphic);
 	      } else{
 	      	markerSymbol = {
 		        type: "picture-marker", // autocasts as new SimpleMarkerSymbol()
@@ -156,14 +162,15 @@ class AirPlane{
 		        //url: "0.svg",
 		        width: 30
 		      };
+
+		      pointGraphic.geometry = point;
+	      	  pointGraphic.symbol = markerSymbol;
+
+	      	  graphicsLayer.add(pointGraphic);
 	      }
 	     
 
-	      pointGraphic.geometry = point;
-	      pointGraphic.symbol = markerSymbol;
-
-
-	      graphicsLayer.add(pointGraphic);
+	      
 
 	}
 

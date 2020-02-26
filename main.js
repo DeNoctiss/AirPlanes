@@ -32,9 +32,8 @@ window.onload = function () {
                 }
               }
 
-  var ctx = document.getElementById('canvas').getContext('2d');
-  window.myLine = new Chart(ctx, config);
-
+                var ctx = document.getElementById('canvas').getContext('2d');
+                window.myLine = new Chart(ctx, config);  
 
 
   require([
@@ -68,8 +67,55 @@ window.onload = function () {
             var pathLayer = new GraphicsLayer();
             map.add(pathLayer);
 
-          function repaint(){
+            var checekdPlaneLayer = new GraphicsLayer();
+            map.add(checekdPlaneLayer);
 
+            let info = document.getElementById('hiddenMenu');
+            let infoBlock = info.innerHTML;
+
+            info.innerHTML = '';
+            console.log(infoBlock);
+
+            function createRouteBlock(){
+              console.log('create');
+              let head = document.createElement('div');
+              hiddenMenu.appendChild(head);
+            for(let i=0; i<AirPlanes.length; i++){
+              let route = document.createElement('div');
+              route.classList.add('route');
+              route.setAttribute('ind',i);
+              //let head = '<div align="center" style="fint-size:23px;">Race</div>';
+              route.innerHTML = AirPlanes[i].race;
+              hiddenMenu.appendChild(route);
+
+              route.onclick = function(){
+                hiddenMenu.innerHTML = infoBlock;
+                var ctx = document.getElementById('canvas').getContext('2d');
+                window.myLine = new Chart(ctx, config);
+                let ind = this.getAttribute('ind');
+                AirPlanes[ind].checked = true;
+                chekcedInd = ind;
+                var polylineGraphic = new Graphic();
+                AirPlanes[ind].pathDraw(polylineGraphic,pathLayer);
+                let pointGraphic = new Graphic();
+                AirPlanes[ind].draw(graphicsLayer, pointGraphic);
+                view.center = AirPlanes[ind].routePath[AirPlanes[i].curPos];
+                let backBtn = document.getElementById('back');
+                  backBtn.onclick = function(){
+                    hiddenMenu.innerHTML = '';
+                    pathLayer.removeAll();
+                    createRouteBlock();
+                  }
+                
+              }
+
+            }
+          }
+
+
+
+          function repaint(){
+            chekcedInd= -1;
             graphicsLayer.removeAll();
             pathLayer.removeAll();
 
@@ -82,18 +128,11 @@ window.onload = function () {
               routes = JSON.parse(xhr.responseText);
               AirPlanes = [];
               for(let i=0; i<routes.length; i++){
-                let AirPlane_ = new AirPlane(routes[i].id, routes[i].race, routes[i].from, routes[i].to);
+                let AirPlane_ = new AirPlane(routes[i].id, routes[i].race, routes[i].from, routes[i].to, checekdPlaneLayer);
                 AirPlanes.push(AirPlane_);
               }
               
-            }
-
-
-            
-
-            console.log(AirPlanes);
-
-
+           }
 
             
 
@@ -105,22 +144,34 @@ window.onload = function () {
             view.on("click", function(event){
               // event is the event handle returned after the event fires.
               console.log(event.mapPoint.longitude + ':' + view.zoom);
-
               if(chekcedInd >= 0){
+                hiddenMenu.innerHTML = '';
+                createRouteBlock();
                 AirPlanes[chekcedInd].checked = false;
                 let pointGraphic = new Graphic();
-                //AirPlanes[chekcedInd].draw(graphicsLayer, pointGraphic);
+                AirPlanes[chekcedInd].draw(graphicsLayer, pointGraphic);
                 pathLayer.removeAll();
+                checekdPlaneLayer.removeAll();
               }
               for(let i = AirPlanes.length-1; i>=0; i--){
                 if(AirPlanes[i].clickCheck(event.mapPoint.longitude, event.mapPoint.latitude, Math.round(view.zoom))){
                   pathLayer.removeAll();
                   AirPlanes[i].checked = true;
                   chekcedInd = i;
+                  hiddenMenu.innerHTML = infoBlock;
+                  var ctx = document.getElementById('canvas').getContext('2d');
+                  window.myLine = new Chart(ctx, config);
                   var polylineGraphic = new Graphic();
                   AirPlanes[i].pathDraw(polylineGraphic,pathLayer);
                   let pointGraphic = new Graphic();
                   AirPlanes[i].draw(graphicsLayer, pointGraphic);
+                  //view.center = AirPlanes[i].routePath[0];
+                  let backBtn = document.getElementById('back');
+                  backBtn.onclick = function(){
+                    hiddenMenu.innerHTML = '';
+                    pathLayer.removeAll();
+                    createRouteBlock();
+                  }
                   break;
                 }
               }
@@ -191,8 +242,11 @@ window.onload = function () {
                 AirPlanes[i].draw(graphicsLayer,pointGraphic);
               }
             }
+
+            createRouteBlock();
           }
 
+          
           
           repaint();
           datePicker.onchange = function(){

@@ -171,8 +171,24 @@
         background-image: url(./stop.png);
       }
 
+      #back{
+        width: 63px;
+        height: 30px;
+        font-size:23px;
+        border-radius: 10px;
+        border: solid 2px black;
+        padding: 5px;
+        line-height: 30px;
+      }
+
+      #back:hover{
+        background-color: white;
+        cursor: pointer;
+      }
+
       .start:hover, .prev:hover, .next:hover, .first:hover, .last:hover, .stop:hover {
         background-color: #f9f1c5;
+        cursor: pointer;
       }
 
       #datepickerContainer{
@@ -199,6 +215,27 @@
         height: 20px;
       }
 
+      .route {
+        width: 150px;
+        height: 50px;
+        background-color: white;
+        border-radius: 10px;
+        margin: auto;
+        margin-top: 20px;
+        margin-left: 60px;
+        text-align: center;
+        line-height: 50px;
+        background: rgb(237,235,250);
+        background: linear-gradient(180deg, rgba(237,235,250,1) 0%, rgba(208,208,217,1) 57%, rgba(102,110,112,1) 100%);
+        color: #004875;
+        float: left;
+      }
+
+      .route:hover {
+        cursor: pointer;
+      }
+      
+
     </style>
   </head>
 
@@ -207,6 +244,7 @@
     <div id="menu"> <b> << </b>
       <div id="hiddenMenu">
         <div id="info">
+          <div id='back'>BACK</div>
           <div id="race" align="center">Race: <b id="raceValue"></b></div>
           <hr>
           <table>
