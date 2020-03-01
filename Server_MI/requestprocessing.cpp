@@ -43,6 +43,8 @@ void RequestProcessing::GetRequest(){
         response=handler.getTotal();
     if(Request_->GetPath()=="/routesDay.json")
         response=handler.getRoutesDay();
+    if(Request_->GetPath()=="/test.json")
+        response=handler.test();
     if(response.isEmpty()){
         Socket_->write("HTTP/1.1 404 \r\n\r\nBad request");
     }

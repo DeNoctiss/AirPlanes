@@ -121,6 +121,23 @@ QString GetRequestHandler::getRoutesDay()
     return  QString(doc.toJson());
 }
 
+QString GetRequestHandler::test()
+{
+    QJsonArray tests;
+    QSqlQuery* query = new QSqlQuery(*DB_);
+    if(query->exec("select * from stest;")){
+        while (query->next()) {
+            QJsonObject test;
+            test["lol"] = query->value(0).toString();
+            tests.prepend(test);
+        }
+    }
+    QJsonDocument doc;
+    doc.setArray(tests);
+    delete query;
+    return QString(doc.toJson());
+}
+
 void GetRequestHandler::answer(QNetworkReply *answer)
 {
     qDebug() << answer->readAll();

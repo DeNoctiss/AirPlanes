@@ -23,6 +23,7 @@ public:
     QString getDataFlightHendler();
     QString getTotal();
     QString getRoutesDay();
+    QString test();
 
 private slots:
     void answer(QNetworkReply *answer);
