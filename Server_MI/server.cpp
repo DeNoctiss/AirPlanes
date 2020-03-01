@@ -8,7 +8,7 @@ Server::Server(QObject* parent): QTcpServer (parent), ThreadPool(new QThreadPool
     DB_.setDatabaseName("AirPlane");
     DB_.setUserName("denoctis");
     DB_.setPassword("ArchDemons");
-    DB_.setHostName("127.0.0.1");
+    DB_.setHostName("91.228.154.218");
     if(DB_.open()){
         qDebug() << "Db open";
     }
