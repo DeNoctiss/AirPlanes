@@ -1,13 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
-import psycopg2
+#import psycopg2
+import sqlite3
 from datetime import datetime
 import time
 
 
 while True:
-    conn = psycopg2.connect(dbname='AirPlane', user='denoctis',
-                            password='ArchDemons', host='localhost')
+    #conn = psycopg2.connect(dbname='AirPlane', user='denoctis',
+    #                        password='ArchDemons', host='localhost')
+    conn = sqlite3.connect ("/home/denoctis/AirPlane")
     cursor = conn.cursor()
 
     preficsUrl = 'https://ru.flightaware.com/live/fleet/'
@@ -40,7 +42,7 @@ while True:
                     for roww in cursor.fetchone():
                         dateId = roww+1
                         #print(dateId)
-                        cursor.execute("insert into Date values('"+today+"',"+str(dateId)+");")
+                        cursor.execute("insert into Date values("+str(dateId)+",'"+today+"');")
                         conn.commit()
                 else:
                     cursor.execute("select id from Date where Date = '"+today+"';")
