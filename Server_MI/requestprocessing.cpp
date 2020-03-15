@@ -49,7 +49,7 @@ void RequestProcessing::GetRequest(){
         Socket_->write("HTTP/1.1 404 \r\n\r\nBad request");
     }
     else {
-        long long length = response.length()*3;
+        long long length = response.length()*10;
         response ="HTTP/1.1 200 OK \r\nContent-Type: application/json\r\nContent-Length: "+QString::number(length)+" \r\nAccess-Control-Allow-Origin: *\r\n\r\n " + response;
 
         Socket_->write(response.toLocal8Bit());
