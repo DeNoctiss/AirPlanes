@@ -49,11 +49,10 @@ void RequestProcessing::GetRequest(){
         Socket_->write("HTTP/1.1 404 \r\n\r\nBad request");
     }
     else {
-        response ="HTTP/1.1 200 OK \r\nContent-Type: application/json\r\nAccess-Control-Allow-Origin: *\r\n\r\n " + response;
-        QByteArray ans;
-        ans.resize(response.length()*2);
-        ans = response.toLocal8Bit();
-        Socket_->write(ans);
+        long long length = response.length();
+        response ="HTTP/1.1 200 OK \r\nContent-Type: application/json\r\nContent-Length: "+QString::number(length)+" \r\nAccess-Control-Allow-Origin: *\r\n\r\n " + response;
+
+        Socket_->write(response.toLocal8Bit());
     }
 
 }
