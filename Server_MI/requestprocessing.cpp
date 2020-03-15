@@ -50,7 +50,10 @@ void RequestProcessing::GetRequest(){
     }
     else {
         response ="HTTP/1.1 200 OK \r\nContent-Type: application/json\r\nAccess-Control-Allow-Origin: *\r\n\r\n " + response;
-        Socket_->write(response.toLocal8Bit());
+        QByteArray ans;
+        ans.resize(response.length()*2);
+        ans = response.toLocal8Bit();
+        Socket_->write(ans);
     }
 
 }

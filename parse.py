@@ -9,7 +9,7 @@ import time
 while True:
     #conn = psycopg2.connect(dbname='AirPlane', user='denoctis',
     #                        password='ArchDemons', host='localhost')
-    conn = sqlite3.connect ("/home/denoctis/AirPlane")
+    conn = sqlite3.connect ("/home/denoctis/Projects/AirPlanes/build-Server_MI-unknown-Release/AirPlane")
     cursor = conn.cursor()
 
     preficsUrl = 'https://ru.flightaware.com/live/fleet/'
