@@ -50,7 +50,7 @@ void RequestProcessing::GetRequest(){
     }
     else {
         long long length = response.length()*50;
-        response ="HTTP/1.1 200 OK \r\nContent-Type: application/json\r\nContent-Length: "+QString::number(4)+" \r\nAccess-Control-Allow-Origin: *\r\n\r\n " + response;
+        response ="HTTP/1.1 200 OK \r\nContent-Type: application/json\r\nContent-Length: "+QString::number(1)+" \r\nAccess-Control-Allow-Origin: *\r\n\r\n " + response;
 
         Socket_->write(response.toLocal8Bit());
     }
