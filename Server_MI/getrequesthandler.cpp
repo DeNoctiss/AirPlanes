@@ -12,6 +12,7 @@ QString GetRequestHandler::getRoutesHandler()
     QJsonArray routes;
     QSqlQuery* query = new QSqlQuery(*DB_);
     if(query->exec("select Route.id, Route.race, Route.from_, Route.to_, Date.date from Route join Date ON Route.date_id = Date.id;")){
+        int count = 1;
         while (query->next()) {
             QJsonObject route;
             route["id"]=query->value(0).toString();
@@ -20,7 +21,7 @@ QString GetRequestHandler::getRoutesHandler()
             route["to"]= query->value(3).toString();
             route["date"]=query->value(4).toString();
             routes.append(route);
-
+            count++;
         }
     }
     QJsonDocument doc;
