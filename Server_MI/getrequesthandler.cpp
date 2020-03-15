@@ -21,7 +21,9 @@ QString GetRequestHandler::getRoutesHandler()
             route["to"]= query->value(3).toString();
             route["date"]=query->value(4).toString();
             routes.append(route);
+            qDebug() << count;
             count++;
+
         }
     }
     QJsonDocument doc;
