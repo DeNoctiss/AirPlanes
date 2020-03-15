@@ -1,5 +1,3 @@
-
-
 window.onload = function () {
   
 
@@ -120,16 +118,18 @@ window.onload = function () {
             pathLayer.removeAll();
 
             let xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://127.0.0.1:5555/routesDay.json?date='+datePicker.value, false);
+            xhr.open('GET', 'http://91.228.154.218:5555/routesDay.json?date='+datePicker.value, false);
             xhr.send();
             if(xhr.status != 200){
               alert( xhr.status + ': ' + xhr.statusText )
             } else {
               routes = JSON.parse(xhr.responseText);
+              console.log(routes);
               AirPlanes = [];
               for(let i=0; i<routes.length; i++){
                 let AirPlane_ = new AirPlane(routes[i].id, routes[i].race, routes[i].from, routes[i].to, checekdPlaneLayer);
                 AirPlanes.push(AirPlane_);
+                console.log(routes[i].id);
               }
               
            }
