@@ -36,7 +36,6 @@ QString GetRequestHandler::getDataFlightHendler()
     QSqlQuery* query = new QSqlQuery(*DB_);
     QString idRoute = Request_->GetCgi("id");
     if(query->exec("select * from DataFlight where id_route = "+ idRoute+" order by number;")){
-        int count = 1;
         while (query->next()) {
             QJsonObject data;
             data["latitude"]=query->value(0).toString();
@@ -45,8 +44,6 @@ QString GetRequestHandler::getDataFlightHendler()
             data["total_intensity"]=query->value(3).toInt();
             data["direction"]=query->value(4).toInt();
             dataArray.append(data);
-            qDebug() << count;
-            count++;
 
         }
     }

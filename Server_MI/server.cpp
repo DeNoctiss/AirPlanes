@@ -6,8 +6,7 @@ Server::Server(QObject* parent): QTcpServer (parent), ThreadPool(new QThreadPool
     //qDebug() << ThreadPool->maxThreadCount();
     DB_= QSqlDatabase::addDatabase("QSQLITE");
     DB_.setDatabaseName("AirPlane");
-
-    DB_.setHostName("91.228.154.218");
+    DB_.setHostName("127.0.0.1");
     if(DB_.open()){
         qDebug() << "Db open";
     }

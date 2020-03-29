@@ -122,9 +122,6 @@ DIST          = /usr/lib/Qt5_st/mkspecs/features/spec_pre.prf \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_designercomponents_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_devicediscovery_support_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_edid_support_private.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_egl_support_private.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_fb_support_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_fontdatabase_support_private.pri \
@@ -225,10 +222,6 @@ DIST          = /usr/lib/Qt5_st/mkspecs/features/spec_pre.prf \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_uitools_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_virtualkeyboard.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_virtualkeyboard_private.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandclient.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandclient_private.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandcompositor.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandcompositor_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_webchannel.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_webchannel_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_websockets.pri \
@@ -244,22 +237,12 @@ DIST          = /usr/lib/Qt5_st/mkspecs/features/spec_pre.prf \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_zlib_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_assimp.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_assimpsceneimport.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_bradient.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_defaultgeometryloader.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_dmabuf-server.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_drm-egl-server.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_evdevgamepad.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_fullscreen-shell-v1.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_gltfgeometryloader.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_gltfsceneexport.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_gltfsceneimport.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_ivi-shell.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_linux-dmabuf-unstable-v1.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qconnmanbearer.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs-emu-integration.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs-kms-egldevice-integration.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs-x11-integration.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qevdevkeyboardplugin.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qevdevmouseplugin.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qevdevtabletplugin.pri \
@@ -271,7 +254,6 @@ DIST          = /usr/lib/Qt5_st/mkspecs/features/spec_pre.prf \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qjpeg.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qlinuxfb.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qminimal.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qminimalegl.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qmldbg_debugger.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qmldbg_inspector.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qmldbg_local.pri \
@@ -288,7 +270,6 @@ DIST          = /usr/lib/Qt5_st/mkspecs/features/spec_pre.prf \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qsqlite.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qsvg.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qsvgicon.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qt-plugin-wayland-egl.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtga.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtgeoservices_esri.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtgeoservices_itemsoverlay.pri \
@@ -321,24 +302,17 @@ DIST          = /usr/lib/Qt5_st/mkspecs/features/spec_pre.prf \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtvirtualkeyboard_thai.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtvirtualkeyboardplugin.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qvnc.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwayland-egl.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwayland-generic.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwbmp.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwebgl.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwebp.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qxdgdesktopportal.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_scene2d.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_shm-emulation-server.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_uip.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_wayland-eglstream-controller.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_wl-shell.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_xdg-shell-v5.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_xdg-shell-v6.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_xdg-shell.pri \
 		/usr/lib/Qt5_st/mkspecs/features/qt_functions.prf \
 		/usr/lib/Qt5_st/mkspecs/features/qt_config.prf \
 		/usr/lib/Qt5_st/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/Qt5_st/mkspecs/features/spec_post.prf \
+		../Server_MI/.qmake.stash \
 		/usr/lib/Qt5_st/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/Qt5_st/mkspecs/features/toolchain.prf \
 		/usr/lib/Qt5_st/mkspecs/features/default_pre.prf \
@@ -432,9 +406,6 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_designercomponents_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_devicediscovery_support_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_edid_support_private.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_egl_support_private.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_fb_support_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_fontdatabase_support_private.pri \
@@ -535,10 +506,6 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_uitools_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_virtualkeyboard.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_virtualkeyboard_private.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandclient.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandclient_private.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandcompositor.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandcompositor_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_webchannel.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_webchannel_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_websockets.pri \
@@ -554,22 +521,12 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 		/usr/lib/Qt5_st/mkspecs/modules/qt_lib_zlib_private.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_assimp.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_assimpsceneimport.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_bradient.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_defaultgeometryloader.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_dmabuf-server.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_drm-egl-server.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_evdevgamepad.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_fullscreen-shell-v1.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_gltfgeometryloader.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_gltfsceneexport.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_gltfsceneimport.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_ivi-shell.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_linux-dmabuf-unstable-v1.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qconnmanbearer.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs-emu-integration.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs-kms-egldevice-integration.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs-x11-integration.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qevdevkeyboardplugin.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qevdevmouseplugin.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qevdevtabletplugin.pri \
@@ -581,7 +538,6 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qjpeg.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qlinuxfb.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qminimal.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qminimalegl.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qmldbg_debugger.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qmldbg_inspector.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qmldbg_local.pri \
@@ -598,7 +554,6 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qsqlite.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qsvg.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qsvgicon.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qt-plugin-wayland-egl.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtga.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtgeoservices_esri.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtgeoservices_itemsoverlay.pri \
@@ -631,24 +586,17 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtvirtualkeyboard_thai.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtvirtualkeyboardplugin.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qvnc.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwayland-egl.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwayland-generic.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwbmp.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwebgl.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwebp.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qxdgdesktopportal.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_scene2d.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_shm-emulation-server.pri \
 		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_uip.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_wayland-eglstream-controller.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_wl-shell.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_xdg-shell-v5.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_xdg-shell-v6.pri \
-		/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_xdg-shell.pri \
 		/usr/lib/Qt5_st/mkspecs/features/qt_functions.prf \
 		/usr/lib/Qt5_st/mkspecs/features/qt_config.prf \
 		/usr/lib/Qt5_st/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/Qt5_st/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/Qt5_st/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/Qt5_st/mkspecs/features/toolchain.prf \
 		/usr/lib/Qt5_st/mkspecs/features/default_pre.prf \
@@ -730,9 +678,6 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_designercomponents_private.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_devicediscovery_support_private.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_edid_support_private.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_lib_egl_support_private.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_fb_support_private.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_fontdatabase_support_private.pri:
@@ -833,10 +778,6 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_uitools_private.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_virtualkeyboard.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_virtualkeyboard_private.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandclient.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandclient_private.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandcompositor.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_lib_waylandcompositor_private.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_webchannel.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_webchannel_private.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_websockets.pri:
@@ -852,22 +793,12 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 /usr/lib/Qt5_st/mkspecs/modules/qt_lib_zlib_private.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_assimp.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_assimpsceneimport.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_bradient.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_defaultgeometryloader.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_dmabuf-server.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_drm-egl-server.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_evdevgamepad.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_fullscreen-shell-v1.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_gltfgeometryloader.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_gltfsceneexport.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_gltfsceneimport.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_ivi-shell.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_linux-dmabuf-unstable-v1.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qconnmanbearer.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs-emu-integration.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs-kms-egldevice-integration.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs-x11-integration.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qeglfs.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qevdevkeyboardplugin.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qevdevmouseplugin.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qevdevtabletplugin.pri:
@@ -879,7 +810,6 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qjpeg.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qlinuxfb.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qminimal.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qminimalegl.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qmldbg_debugger.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qmldbg_inspector.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qmldbg_local.pri:
@@ -896,7 +826,6 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qsqlite.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qsvg.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qsvgicon.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qt-plugin-wayland-egl.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtga.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtgeoservices_esri.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtgeoservices_itemsoverlay.pri:
@@ -929,24 +858,17 @@ Makefile: ../Server_MI/Server_MI.pro /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.con
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtvirtualkeyboard_thai.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qtvirtualkeyboardplugin.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qvnc.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwayland-egl.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwayland-generic.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwbmp.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwebgl.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qwebp.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_qxdgdesktopportal.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_scene2d.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_shm-emulation-server.pri:
 /usr/lib/Qt5_st/mkspecs/modules/qt_plugin_uip.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_wayland-eglstream-controller.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_wl-shell.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_xdg-shell-v5.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_xdg-shell-v6.pri:
-/usr/lib/Qt5_st/mkspecs/modules/qt_plugin_xdg-shell.pri:
 /usr/lib/Qt5_st/mkspecs/features/qt_functions.prf:
 /usr/lib/Qt5_st/mkspecs/features/qt_config.prf:
 /usr/lib/Qt5_st/mkspecs/linux-g++/qmake.conf:
 /usr/lib/Qt5_st/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/Qt5_st/mkspecs/features/exclusive_builds.prf:
 /usr/lib/Qt5_st/mkspecs/features/toolchain.prf:
 /usr/lib/Qt5_st/mkspecs/features/default_pre.prf:

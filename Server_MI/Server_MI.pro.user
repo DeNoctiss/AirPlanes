@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.0, 2020-03-15T15:57:19. -->
+<!-- Written by QtCreator 4.11.0, 2020-03-29T23:43:13. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{470ae5af-b3cc-44bd-8792-d7cdd4db4b3a}</value>
+  <value type="QByteArray">{7022b1bc-3ff9-41db-a017-ed55be4f0e32}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">0</value>
+  <value type="int">1</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -64,7 +64,7 @@
   <valuemap type="QVariantMap">
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Без имени</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Без имени</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{e0f2c8c6-2afa-4067-9a05-b5acd43ba4ae}</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{83104479-85c2-4682-8c47-af732590c70f}</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">1</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
@@ -540,7 +540,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/denoctis/Projects/AirPlanes/build-Server_MI-Desktop_Qt_5_14_1_GCC_64bit-Debug</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
