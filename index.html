@@ -1,302 +1,459 @@
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="initial-scale=1,maximum-scale=1,user-scalable=no"
-    />
-    <!--
-  ArcGIS API for JavaScript, https://js.arcgis.com
-  For more information about the graphics-basic-3d sample, read the original sample description at developers.arcgis.com.
-  https://developers.arcgis.com/javascript/latest/sample-code/graphics-basic-3d/index.html
-  -->
-<title>AirPlanes Total-intensity</title>
+<head>
+  <meta charset="utf-8" />
+  <meta
+  name="viewport"
+  content="initial-scale=1,maximum-scale=1,user-scalable=no"
+  />
 
-    <link
-      rel="stylesheet"
-      href="https://js.arcgis.com/4.14/esri/themes/light/main.css"
-    />
-    <script src="https://js.arcgis.com/4.14/"></script>
+  <title>AirPlanes Total-intensity</title>
 
-    <style>
-      body {
-        margin: 0px;
-        padding: 0px;
-      }
-      #viewDiv {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        width: 100vw;
-        float: left;
-      }
+  <link
+  rel="stylesheet"
+  href="https://js.arcgis.com/4.14/esri/themes/light/main.css"
+  />
+  <script src="https://js.arcgis.com/4.14/"></script>
+  <!--  jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-      #menu{
-        position: fixed; /* положение */
-        right: 0; /* отступ слева */
-        width: 30px; /* ширина блока */
-        height: 40px; /* высота блока */
-        font: 14px Arial; /* размер и тип шрифта */
-        color: #000; /* цвет текста */
-        text-align: center; /* выравнивание текста по центру */
-        padding: 0px; /* отступы от границ внутри блока */
+  <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+  <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
-        -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
-        -moz-transition-duration: 0.3s;
-        -o-transition-duration: 0.3s;
-        transition-duration: 0.3s;
+  <!-- Bootstrap Date-Picker Plugin -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
-        -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
-        -moz-border-radius: 0 5px 5px 0;
-        border-radius: 5px 0px 0px 5px;
+  <style>
+    body {
+      margin: 0px;
+      padding: 0px;
+      overflow: hidden;
+    }
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100vw;
+      float: left;
+    }
 
-        background: rgb(226,156,28);
-        background: linear-gradient(90deg, rgba(226,156,28,1) 28%, rgba(221,188,11,1) 100%);
-      }
+    #controlsContainer{
+      margin: 0;
+      width: 100vw;
+      height: 40px;
+      background-color: rgb(226,156,28);
+      position: absolute;
+      top: 0;
+      padding: 5px;
+      background: rgb(255,255,255);
+      padding-left: 100px;
+      -webkit-box-shadow: 1px 1px 14px 0px rgba(50, 50, 50, 0.75);
+      -moz-box-shadow:    1px 1px 14px 0px rgba(50, 50, 50, 0.75);
+      box-shadow:         1px 1px 14px 0px rgba(50, 50, 50, 0.75);
+      z-index: 1;
+    }
 
-      #hiddenMenu {
-        position: fixed; /* положение */
-        right: -523px; /* отступ слева */
-        background: #f9f1c5; /* цвет фона */
-        color: #000; /* цвет текста */
-        width: 500px; /* ширина блока */
-        height: 100vh; /* высота блока */
-        padding: 10px; /* отступы от границ внутри блока */
-        text-align: left; /* выравнивание текста */
+    #controlsContainer label{
 
-        -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
-        -moz-transition-duration: 0.3s;
-        -o-transition-duration: 0.3s;
-        transition-duration: 0.3s;
+      font-weight: 700;
+    }
 
-        -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
-        -moz-border-radius: 0 5px 5px 0;
-        border-radius: 0 5px 5px 0;
-        top: 0;
-        border-left: solid 3px #ddbc0b;
-        overflow-y: scroll;
-      }
-      
-      #menu:hover {
-        right: 523px; /* при наведении выдвигается на скрытые 200px + 20px отступы */
-      }
+    #date {
+      width: 100px;
+      height: 30px;
+      text-align: center;
+      margin-top: 5px;
+      margin-left: 5px;
+      font-size: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
 
-      #menu:hover #hiddenMenu {
-        right:0px;
-      }
+    .datepicker table {
+      background-color: white;
+    }
 
-      #race {
-        width: 90%;
-        height: 30px;
-        font-size: 20px;
-      }
+    #animationMenu{
+      width: 230px;
+    }
 
-      #info{
-        height: 60vh;
-        width: 80%;
-        margin: auto;
-        margin-top: 10px;
-        font-size: 23px;
-      }
+    .esri-ui-top-left{
+      margin-top: 50px;
+    }
 
-      .lable{
-        font-size: 23px;
-        color: rgb(120,120,120);
-      }
-      
+    #hiddenMenu {
+      position: fixed; /* положение */
+      right: 0px; /* отступ слева */
+      /*background: #f9f1c5;  цвет фона */
+      background-color: rgba(255,255,255,.8);
+      color: #000; /* цвет текста */
+      width: 500px; /* ширина блока */
+      height: 100vh; /* высота блока */
+      padding: 10px; /* отступы от границ внутри блока */
+      text-align: left; /* выравнивание текста */
+      margin-top: 50px;
+      -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
+      -moz-transition-duration: 0.3s;
+      -o-transition-duration: 0.3s;
+      transition-duration: 0.3s;
 
-      #latitude, #longitude, #altitude, #total{
-        width: 50%;
-        text-align: center;
-        font-size: 23px;
-      }
+      -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
+      -moz-border-radius: 0 5px 5px 0;
+      border-radius: 0 5px 5px 0;
+      top: -700px;
+      overflow-y: scroll;
+    } 
 
-      #total{
-        line-height: 30px; 
-      }
+    #race {
+      width: 90%;
+      height: 30px;
+      font-size: 20px;
+    }
 
-      canvas {
-        width: 100%;
-      }
+    #info{
+      height: 330px;
+      width: 80%;
+      margin: auto;
+      margin-top: 10px;
+      font-size: 18px;
+    }
 
-      #graf {
-        height: 250px;
-        width: 500px;
-      }
+    .lable{
+      font-size: 18px;
+      color: rgb(0,0,0);
+    }
 
-      #controlsContainer{
-        width: 260px;
-        height: 80px;
-        background-color: rgb(226,156,28);
-        position: absolute;
-        margin-left: 55px;
-        top: 15px;
-        padding: 5px;
-        background: rgb(226,156,28);
-        background: linear-gradient(0deg, rgba(226,156,28,1) 28%, rgba(249,241,197,1) 100%);
-        border: solid 2px black;
-        border-radius: 10px;
-      }
 
-      .start, .prev, .next, .first, .last, .stop{
-        border-radius: 100%;
-        height: 48px;
-        width: 48px;
-        float: left;
-        background-position: center,center;
-        margin-left: 3px;
-      }
+    #latitude, #longitude, #altitude, #total,#raceValue{
+      width: 50%;
+      text-align: center;
+      font-size: 23px;
+      font-weight: 700;
+    }
 
-      .start {
-        background-image: url(./start.png);
-      }
+    #total{
+      line-height: 30px; 
+    }
 
-      .prev {
-        background-image: url(./prev.png);
-      }
+    canvas {
+      width: 100%;
+    }
 
-      .next {
-        background-image: url(./next.png);
-      }
+    #graf {
+      height: 250px;
+      width: 500px;
+    }
 
-      .first {
-        background-image: url(./first.png);
-      }
+    .startBtn, .prevBtn, .nextBtn, .firstBtn, .lastBtn, .stopBtn{
+      border-radius: 100%;
+      height: 40px;
+      width: 40px;
+      float: left;
+      background-position: center,center;
+      margin-left: 3px;
+      background-size: 90%;
+    }
 
-      .last {
-        background-image: url(./last.png);
-      }
+    .startBtn {
+      background-image: url(./start.png);
 
-      .stop {
-        background-image: url(./stop.png);
-      }
+    }
 
-      #back{
-        width: 63px;
-        height: 30px;
-        font-size:23px;
-        border-radius: 10px;
-        border: solid 2px black;
-        padding: 5px;
-        line-height: 30px;
-      }
+    .prevBtn {
+      background-image: url(./prev.png);
+    }
 
-      #back:hover{
-        background-color: white;
-        cursor: pointer;
-      }
+    .nextBtn {
+      background-image: url(./next.png);
+    }
 
-      .start:hover, .prev:hover, .next:hover, .first:hover, .last:hover, .stop:hover {
-        background-color: #f9f1c5;
-        cursor: pointer;
-      }
+    .firstBtn {
+      background-image: url(./first.png);
+    }
 
-      #datepickerContainer{
-        margin-left: 55px;
+    .lastBtn {
+      background-image: url(./last.png);
+    }
 
-      }
+    .stopBtn {
+      background-image: url(./stop.png);
+    }
 
-      #datePicker{
-        width: 150px;
-        border-radius: 10px;
-        margin-top: 5px;
-      }
+    #back{
+      width: 40px;
+      height: 20px;
+      font-size:15px;
+      border-radius: 4px;
+      padding: 5px;
+      line-height: 20px;
+      background: #337ab8;
+      border: 1px solid #285f8f;
+      color: white;
+      float: left;
+    }
 
-      #takeoff, #landing{
-        float: left;
-        width: 49%;
-      }
+    #back:hover{
+      cursor: pointer;
+      background: #285f8f;
+    }
 
-      #info table {
-        margin-top: 30px;
-      }
+    #toCSV {
+      width: 60px;
+      height: 20px;
+      font-size:15px;
+      border-radius: 4px;
+      padding: 5px;
+      line-height: 20px;
+      background: #337ab8;
+      border: 1px solid #285f8f;
+      color: white;
+      float: right;
+      text-align: center;
+    }
 
-      #info table td {
-        height: 20px;
-      }
+    #toCSV:hover{
+      cursor: pointer;
+      background: #285f8f;
+    }
 
-      .route {
-        width: 150px;
-        height: 50px;
-        background-color: white;
-        border-radius: 10px;
-        margin: auto;
-        margin-top: 20px;
-        margin-left: 60px;
-        text-align: center;
-        line-height: 50px;
-        background: rgb(237,235,250);
-        background: linear-gradient(180deg, rgba(237,235,250,1) 0%, rgba(208,208,217,1) 57%, rgba(102,110,112,1) 100%);
-        color: #004875;
-        float: left;
-      }
 
-      .route:hover {
-        cursor: pointer;
-      }
-      
+    .startBtn:hover, .prevBtn:hover, .nextBtn:hover, .firstBtn:hover, .lastBtn:hover, .stopBtn:hover {
+      background-color: #CCC;
+      cursor: pointer;
+    }
 
-    </style>
-  </head>
+    #datepickerContainer{
+      margin-left: 20px;
+      float: left;
 
-  <body>
-    <div id="viewDiv"></div>
-    <div id="menu"> <b> << </b>
-      <div id="hiddenMenu">
-        <div id="info">
-          <div id='back'>BACK</div>
-          <div id="race" align="center">Race: <b id="raceValue"></b></div>
-          <hr>
-          <table>
-            <tr>
-              <td class="lable" align="left">Latitute:</td>
-              <td id="latitude" align="right"></td>
-            </td>
-            <tr>
-              <td class="lable" align="left">Longitude:</td>
-              <td id="longitude" align="right"></td>
-            </tr>
-            <tr>
-              <td class="lable" align="left">Altitude:</td>
-              <td id="altitude" align="right"></td>
-            </tr>
-            <tr>
-              <td class="lable" align="left">Total intensity:</td>
-              <td id="total" align="right"></td>
-            </tr>
-          </table>
-          <hr>
-          <div>
-            <div id="takeoff">
-              <div class="lable" align="center">Takeoff:</div>
-              <div id="takeoffValue" align="center"></div>
-            </div>
-            <div id="landing">
-              <div class="lable" align="center">Landing:</div>
-              <div id="landingValue" align="center"></div>
-            </div>
-          </div>
+    }
+
+    #datePicker{
+      width: 150px;
+      border-radius: 10px;
+      margin-top: 5px;
+    }
+
+    #takeoff, #landing{
+      float: left;
+      width: 49%;
+    }
+
+    #takeoffValue, #landingValue{
+      font-weight: 1000;
+    }
+
+    #info table {
+      margin: auto;
+      margin-top: 30px;
+    }
+
+    #info table td {
+      height: 20px;
+    }
+
+    .route {
+      width: 150px;
+      height: 50px;
+      background-color: white;
+      border-radius: 4px;
+      margin: auto;
+      margin-top: 20px;
+      margin-left: 60px;
+      text-align: center;
+      line-height: 50px;
+      background: #337ab8;
+      border: 1px solid #285f8f;
+      color: white;
+      float: left;
+      font-weight: 700;
+    }
+
+    .route:hover {
+      cursor: pointer;
+      background: #285f8f;
+    }
+
+    .select {
+      display:flex;
+      flex-direction: column;
+      position:relative;
+      width:150px;
+      height:30px;
+      margin-top: 4px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      float: left;
+    }
+
+    .option {
+      padding:0 30px 0 10px;
+      min-height:30px;
+      display:flex;
+      align-items:center;
+      background:  #E5E5E5;
+      border-top:#222 solid 1px;
+      position:absolute;
+      top:0;
+      width: 100%;
+      pointer-events:none;
+      order:2;
+      z-index:1;
+      transition:background .4s ease-in-out;
+      box-sizing:border-box;
+      overflow:hidden;
+      white-space:nowrap;
+    }
+
+    .option:hover {
+      background: #285f8f;
+      color: white;
+    }
+
+    .select:focus .option {
+      position:relative;
+      pointer-events:all;
+
+    }
+
+    .select:focus {
+      height: 30px;
+    }
+
+    input.options-select {
+      opacity:0;
+      position:absolute;
+      left:-99999px;
+    }
+
+    input.options-select:checked + label {
+      order: 1;
+      z-index:2;
+      background: #337ab8;
+      border-top:none;
+      position:relative;
+      color: white;
+      border-radius: 4px;
+    }
+
+    input.options-select:checked + label:after {
+      content:'';
+      width: 0; 
+      height: 0; 
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid black;
+      position:absolute;
+      right:10px;
+      top:calc(50% - 2.5px);
+      pointer-events:none;
+      z-index:3;
+      border-radius: 4px;
+    }
+
+    input.options-select:checked + label:before {
+      position:absolute;
+      right:0;
+      height: 30px;
+      width: 30px;
+      content: '';
+      background: #eee;
+      border-radius: 4px;
+    }
+
+    #listContainer {
+      margin-left: 20px;
+      float: left;
+    }
+
+    #listContainer label:first-child{
+      margin-right: 20px;
+      line-height: 40px;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div id="viewDiv"></div>
+  <div id="controlsContainer">
+    <div id="animationMenu">
+      <div class="firstBtn"></div>
+      <div class="prevBtn"></div>
+      <div class="startBtn"></div>
+      <div class="nextBtn"></div>
+      <div class="lastBtn"></div>  
+    </div>
+    <div id="datepickerContainer">
+      <!-- <input id="datePicker" type="date" name="datePicker" value="2020-03-11"> -->
+      <label>Date:</label>
+      <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" value="2020-03-14" />
+    </div>
+    <div id="listContainer">
+      <label>Flight:</label>
+      <div class="select" tabindex="1">
+        <input class="options-select" name="selectors" type="radio" id="opt" checked>
+        <label for="opt" class="option noneSelect" value="1">Select Flight</label>
+      </div>
+    </div>
+    
+    
+    
+  </div>
+  <div id="hiddenMenu">
+    <div id="info">
+      <div id='back'>BACK</div>
+      <div id="toCSV"><a id="download" style="text-decoration: none; color: white;">TO CSV</a></div>
+      <div id="race" align="center">Race: <b id="raceValue"></b></div>
+      <hr>
+      <table>
+        <tr>
+          <td class="lable" align="left">Latitute:</td>
+          <td id="latitude" align="right"></td>
+        </td>
+        <tr>
+          <td class="lable" align="left">Longitude:</td>
+          <td id="longitude" align="right"></td>
+        </tr>
+        <tr>
+          <td class="lable" align="left">Altitude:</td>
+          <td id="altitude" align="right"></td>
+        </tr>
+        <tr>
+          <td class="lable" align="left">Total intensity:</td>
+          <td id="total" align="right"></td>
+        </tr>
+      </table>
+      <hr>
+      <div>
+        <div id="takeoff">
+          <div class="lable" align="center">Takeoff:</div>
+          <div id="takeoffValue" align="center"></div>
         </div>
-        <hr>
-        <div id="graf">
-          <canvas id=canvas></canvas>
+        <div id="landing">
+          <div class="lable" align="center">Landing:</div>
+          <div id="landingValue" align="center"></div>
         </div>
       </div>
     </div>
-    <div id="controlsContainer">
-      <div id="animationMenu">
-        <div class="first"></div>
-        <div class="prev"></div>
-        <div class="start"></div>
-        <div class="next"></div>
-        <div class="last"></div>  
-      </div>
-      <div id="datepickerContainer">
-        <input id="datePicker" type="date" name="datePicker" value="2020-03-11">
-      </div>
+    <div id="graf">
+      
     </div>
   </body>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('#datepickerContainer');
+      var options={
+        format: 'yyyy-mm-dd',
+        container: container,
+        datesDisabled: ['2020-03-05'],
+        startDate: '2020-03-14',
+        endDate: '2020-03-14'
+      };
+      date_input.datepicker(options);
+    })
+  </script>
   <script type="text/javascript" src="plane.js"></script>
   <script type="text/javascript" src="main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-</html>
+  </html>

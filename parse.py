@@ -20,20 +20,21 @@ while True:
 
     preficsTable = PreficsSoup.find('table', {'class': 'prettyTable'})
     preficsLinks = preficsTable.findAll('a')
-    preficsLinks = preficsLinks[:5:]
+    preficsLinks = preficsLinks[:1:]
 
     for prefLink in preficsLinks:
-        routeUrl = 'https://ru.flightaware.com'+prefLink.get('href')
+        routeUrl = 'https://ru.flightaware.com/live/fleet/DAL'
         routeSource = requests.get(routeUrl)
         mainRouteText = routeSource.text
         routeSoup = BeautifulSoup(mainRouteText, 'html.parser')
         routeTable = routeSoup.find('table', {'class': 'prettyTable'})
         routs = routeTable.findAll('tr')
-        routs = routs[2::]
+        routs = routs[2:3:]
         for route in routs:
             routeData = route.findAll('td')
             today = datetime.now()
             today = str(datetime.date(today))
+            today = '2020-03-25'
             dateId = 0
             cursor.execute("select count(*) from Date where Date = "+ "'"+today+"';")
             for row in cursor.fetchone():
@@ -51,8 +52,11 @@ while True:
             print(dateId)
             print(routeData[2].text + '->' + routeData[3].text)
             from_ = routeData[2].text.replace("'",'')
+            from_ = 'INDIANAPOLIS, IN'
             to_ = routeData[3].text.replace("'",'')
+            to_ = 'ATLANTA, GA'
             race = routeData[0].find('a').text
+            race = 'DAL112'
             print(race)
             idRoute = 0
             cursor.execute("select count(id) from Route where race = '"+race+"';")
@@ -68,7 +72,7 @@ while True:
                     for roww in cursor.fetchone():
                         idRoute = roww
             print(idRoute)
-            flightDataUrl = 'https://ru.flightaware.com' + routeData[0].find('a').get('href') + '/tracklog'
+            flightDataUrl = 'https://ru.flightaware.com/live/flight/DAL1127/history/20200323/1534Z/KIND/KATL/tracklog'
             flightDataSource = requests.get(flightDataUrl)
             maintFlightDataText = flightDataSource.text
             flightDataSoup = BeautifulSoup(maintFlightDataText, 'html.parser')

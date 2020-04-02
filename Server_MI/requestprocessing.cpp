@@ -29,6 +29,7 @@ void RequestProcessing::Responce(){
     if(Request_->GetType()=="POST"){
         PostRequest();
     }
+    delete Request_;
 }
 
 void RequestProcessing::GetRequest(){

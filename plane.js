@@ -56,121 +56,125 @@ class AirPlane{
 			          "http://s255477.smrtp.ru/330.png", //330
 			          "http://s255477.smrtp.ru/345.png", //345
 			          "http://s255477.smrtp.ru/360.png"  //360
-			]
-		this.curPos = 0;
-		this.prevPos = 0;
-		this.routePath = [];
-		this.total = [];
-		this.labels = [];
-		this.directions = [];
-		this.longitudes = [];
-		this.latitudes = [];
-		this.altitudes = [];
-		this.position = new Array(this.total.length);
-        this.position[this.curPos] = this.total[this.curPos];
-		this.radius = new Array(this.total.length);
-        this.radius[this.curPos] = 7;
-		let xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://91.228.154.218:5555/dataflight.json?id='+this.id, false);
-            xhr.send();
-            if(xhr.status != 200){
-				alert( xhr.status + ': ' + xhr.statusText )
-            } else {
-                let routeData = JSON.parse(xhr.responseText);
-                for( let i=0; i<routeData.length; i++){
-                	let coords = [];
-	                coords.push(Number(routeData[i].longitude));
-	                coords.push(Number(routeData[i].latitude));
-	                this.longitudes.push(Number(routeData[i].longitude));
-	                this.latitudes.push(Number(routeData[i].latitude));
-	                this.routePath.push(coords);
-	                this.total.push(routeData[i].total_intensity);
-	                this.labels.push(i);
-	                this.directions.push(routeData[i].direction);
-	                this.altitudes.push(routeData[i].altitude)
-                }
-            }
+			          ]
+			          this.curPos = 0;
+			          this.prevPos = 0;
+			          this.routePath = [];
+			          this.total = [];
+			          this.labels = [];
+			          this.directions = [];
+			          this.longitudes = [];
+			          this.latitudes = [];
+			          this.altitudes = [];
+			          this.position = new Array(this.total.length);
+			          this.position[this.curPos] = this.total[this.curPos];
+			          this.radius = new Array(this.total.length);
+			          this.radius[this.curPos] = 7;
+			          let xhr = new XMLHttpRequest();
+			          xhr.open('GET', 'http://91.228.154.218:5555/dataflight.json?id='+this.id, false);
+			          
+			          try{
+			          	xhr.send();
+			          	if(xhr.status != 200){
+			          		alert( xhr.status + ': ' + xhr.statusText )
+			          	} else {
+			          		let routeData = JSON.parse(xhr.responseText);
+			          		for( let i=0; i<routeData.length; i++){
+			          			let coords = [];
+			          			coords.push(Number(routeData[i].longitude));
+			          			coords.push(Number(routeData[i].latitude));
+			          			this.longitudes.push(Number(routeData[i].longitude));
+			          			this.latitudes.push(Number(routeData[i].latitude));
+			          			this.routePath.push(coords);
+			          			this.total.push(routeData[i].total_intensity);
+			          			this.labels.push(i);
+			          			this.directions.push(routeData[i].direction);
+			          			this.altitudes.push(routeData[i].altitude)
+			          		}
+			          	}
+			          } catch(e) { console.log(e); return;}
+			          
 
 
-	}
+			      }
 
-	showInfo(){
-		  let race = document.getElementById('raceValue');
-	      race.innerHTML = this.race;
-	      console.log(this.id);
+			      showInfo(){
+			      	let race = document.getElementById('raceValue');
+			      	race.innerHTML = this.race;
+			      	console.log(this.id);
 
-	      let latitude = document.getElementById('latitude');
-	      latitude.innerHTML = this.latitudes[this.curPos];
+			      	let latitude = document.getElementById('latitude');
+			      	latitude.innerHTML = this.latitudes[this.curPos];
 
-	      let longitude = document.getElementById('longitude');
-	      longitude.innerHTML = this.longitudes[this.curPos];
+			      	let longitude = document.getElementById('longitude');
+			      	longitude.innerHTML = this.longitudes[this.curPos];
 
-	      let altitude = document.getElementById('altitude');
-	      altitude.innerHTML = this.altitudes[this.curPos];
+			      	let altitude = document.getElementById('altitude');
+			      	altitude.innerHTML = this.altitudes[this.curPos];
 
-	      let total = document.getElementById('total');
-	      total.innerHTML = this.total[this.curPos];
+			      	let total = document.getElementById('total');
+			      	total.innerHTML = this.total[this.curPos];
 
-	      let takeoff = document.getElementById('takeoffValue');
-	      takeoff.innerHTML = this.from_;
+			      	let takeoff = document.getElementById('takeoffValue');
+			      	takeoff.innerHTML = this.from_;
 
-	      let landing = document.getElementById('landingValue');
-	      landing.innerHTML = this.to_;
-	}
+			      	let landing = document.getElementById('landingValue');
+			      	landing.innerHTML = this.to_;
+			      }
 
-	drawGraf(){
-		  var position = new Array(this.total.length);
-	      position[this.curPos] = this.total[this.curPos];
+			      drawGraf(){
+			      	var position = new Array(this.total.length);
+			      	position[this.curPos] = this.total[this.curPos];
 
-	      var radius = new Array(this.total.length);
-	      radius[this.curPos] = 7;
+			      	var radius = new Array(this.total.length);
+			      	radius[this.curPos] = 7;
 
-	      window.myLine.config.data.labels = this.labels;
-	      window.myLine.config.data.datasets[0].data = this.total;
-	      window.myLine.config.data.datasets[1].data = [];
-	      window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
-          window.myLine.update();
-	}
+			      	window.myLine.config.data.labels = this.labels;
+			      	window.myLine.config.data.datasets[0].data = this.total;
+			      	window.myLine.config.data.datasets[1].data = [];
+			      	window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
+			      	window.myLine.update();
+			      }
 
 
 
-	draw(graphicsLayer, pointGraphic){
-		var point = {
+			      draw(graphicsLayer, pointGraphic){
+			      	var point = {
 	        type: "point", // autocasts as new Point()
 	        x: this.longitudes[this.curPos],
 	        y: this.latitudes[this.curPos]
-	      };
-	      let markerSymbol;
-	      if(this.checked){
-	      	markerSymbol = {
+	    };
+	    let markerSymbol;
+	    if(this.checked){
+	    	markerSymbol = {
 		        type: "picture-marker", // autocasts as new SimpleMarkerSymbol()
 		        color: [0, 255, 0],
 		        url: this.urls[Math.floor(Number(this.directions[this.curPos])/15)],
 		        //url: "0.svg",
 		        width: 30
-		      };
-		      pointGraphic.geometry = point;
-		      pointGraphic.symbol = markerSymbol;
+		    };
+		    pointGraphic.geometry = point;
+		    pointGraphic.symbol = markerSymbol;
 
-		      this.checkLayer.removeAll();
-		      this.checkLayer.add(pointGraphic);
-	      } else{
-	      	markerSymbol = {
+		    this.checkLayer.removeAll();
+		    this.checkLayer.add(pointGraphic);
+		} else{
+			markerSymbol = {
 		        type: "picture-marker", // autocasts as new SimpleMarkerSymbol()
 		        //color: [226, 119, 40],
 		        url: this.urls[Math.floor(Number(this.directions[this.curPos])/15)],
 		        //url: "0.svg",
 		        width: 30
-		      };
+		    };
 
-		      pointGraphic.geometry = point;
-	      	  pointGraphic.symbol = markerSymbol;
+		    pointGraphic.geometry = point;
+		    pointGraphic.symbol = markerSymbol;
 
-	      	  graphicsLayer.add(pointGraphic);
-	      }
-	     
+		    graphicsLayer.add(pointGraphic);
+		}
+		
 
-	      
+		
 
 	}
 
@@ -178,21 +182,21 @@ class AirPlane{
 		var polyline = {
 	        type: "polyline", // autocasts as new Polyline()
 	        paths: this.routePath
-	      };
+	    };
 
 	    let lineSymbol = {
 	        type: "simple-line", // autocasts as SimpleLineSymbol()
 	        color: [226, 119, 40],
 	        width: 4
-	      };
+	    };
 
-	      polylineGraphic.geometry = polyline;
-	      polylineGraphic.symbol = lineSymbol;
+	    polylineGraphic.geometry = polyline;
+	    polylineGraphic.symbol = lineSymbol;
 
-	      pathLayer.add(polylineGraphic);
+	    pathLayer.add(polylineGraphic);
 
-	      this.showInfo();
-	      this.drawGraf();
+	    this.showInfo();
+	    this.drawGraf();
 
 	}
 
@@ -208,13 +212,13 @@ class AirPlane{
 			this.curPos = this.curPos+1;
 		}
 		if(this.checked){
-		  this.showInfo();
-		  
-		  window.myLine.config.data.datasets[1].data[this.prevPos] = null;
-		  window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
-		  window.myLine.config.data.datasets[1].pointRadius[this.prevPos] = null;
-		  window.myLine.config.data.datasets[1].pointRadius[this.curPos] = 7;
-		  window.myLine.update();
+			this.showInfo();
+			
+			window.myLine.config.data.datasets[1].data[this.prevPos] = null;
+			window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
+			window.myLine.config.data.datasets[1].pointRadius[this.prevPos] = null;
+			window.myLine.config.data.datasets[1].pointRadius[this.curPos] = 7;
+			window.myLine.update();
 		}
 	}
 
@@ -224,13 +228,13 @@ class AirPlane{
 			this.curPos = this.curPos-1;
 		}
 		if(this.checked){
-		  this.showInfo();
-		  
-		  window.myLine.config.data.datasets[1].data[this.prevPos] = null;
-		  window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
-		  window.myLine.config.data.datasets[1].pointRadius[this.prevPos] = null;
-		  window.myLine.config.data.datasets[1].pointRadius[this.curPos] = 7;
-		  window.myLine.update();
+			this.showInfo();
+			
+			window.myLine.config.data.datasets[1].data[this.prevPos] = null;
+			window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
+			window.myLine.config.data.datasets[1].pointRadius[this.prevPos] = null;
+			window.myLine.config.data.datasets[1].pointRadius[this.curPos] = 7;
+			window.myLine.update();
 		}
 	}
 
@@ -238,13 +242,13 @@ class AirPlane{
 		this.prevPos = this.curPos;
 		this.curPos = 0;
 		if(this.checked){
-		  this.showInfo();
-		  
-		  window.myLine.config.data.datasets[1].data[this.prevPos] = null;
-		  window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
-		  window.myLine.config.data.datasets[1].pointRadius[this.prevPos] = null;
-		  window.myLine.config.data.datasets[1].pointRadius[this.curPos] = 7;
-		  window.myLine.update();
+			this.showInfo();
+			
+			window.myLine.config.data.datasets[1].data[this.prevPos] = null;
+			window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
+			window.myLine.config.data.datasets[1].pointRadius[this.prevPos] = null;
+			window.myLine.config.data.datasets[1].pointRadius[this.curPos] = 7;
+			window.myLine.update();
 		}
 	}	
 
@@ -252,13 +256,13 @@ class AirPlane{
 		this.prevPos = this.curPos;
 		this.curPos = this.routePath.length-1;
 		if(this.checked){
-		  this.showInfo();
-		  
-		  window.myLine.config.data.datasets[1].data[this.prevPos] = null;
-		  window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
-		  window.myLine.config.data.datasets[1].pointRadius[this.prevPos] = null;
-		  window.myLine.config.data.datasets[1].pointRadius[this.curPos] = 7;
-		  window.myLine.update();
+			this.showInfo();
+			
+			window.myLine.config.data.datasets[1].data[this.prevPos] = null;
+			window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
+			window.myLine.config.data.datasets[1].pointRadius[this.prevPos] = null;
+			window.myLine.config.data.datasets[1].pointRadius[this.curPos] = 7;
+			window.myLine.update();
 		}
 	}
 

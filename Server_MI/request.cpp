@@ -26,7 +26,6 @@ Request::Request(const QString &request)
 
     this->Body_ = headers.back();
     headers.pop_back();
-    QString str = "POST /dish.json HTP/1.1\r\nHost:25.43.32.251:5555\r\nContent-type\r\nContent\r\nConnection\r\nAccept\r\nAccept\r\nUser\r\n\r\nJSON";
 }
 
 QString Request::GetCgi(const QString &name) const
