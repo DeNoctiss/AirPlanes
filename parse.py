@@ -23,7 +23,7 @@ while True:
     preficsLinks = preficsLinks[:1:]
 
     for prefLink in preficsLinks:
-        routeUrl = 'https://ru.flightaware.com/live/fleet/DAL'
+        routeUrl = 'https://ru.flightaware.com/live/fleet/AAL'
         routeSource = requests.get(routeUrl)
         mainRouteText = routeSource.text
         routeSoup = BeautifulSoup(mainRouteText, 'html.parser')
@@ -34,7 +34,7 @@ while True:
             routeData = route.findAll('td')
             today = datetime.now()
             today = str(datetime.date(today))
-            today = '2020-03-25'
+            today = '2020-03-18'
             dateId = 0
             cursor.execute("select count(*) from Date where Date = "+ "'"+today+"';")
             for row in cursor.fetchone():
@@ -52,14 +52,14 @@ while True:
             print(dateId)
             print(routeData[2].text + '->' + routeData[3].text)
             from_ = routeData[2].text.replace("'",'')
-            from_ = 'INDIANAPOLIS, IN'
+            from_ = 'SEATTLE, WA'
             to_ = routeData[3].text.replace("'",'')
-            to_ = 'ATLANTA, GA'
+            to_ = 'CHICAGO, IL'
             race = routeData[0].find('a').text
-            race = 'DAL112'
+            race = 'AAL1045'
             print(race)
             idRoute = 0
-            cursor.execute("select count(id) from Route where race = '"+race+"';")
+            cursor.execute("select count(id) from Route where race = '"+race+"' and date_id = "+str(dateId)+";")
             for row in cursor.fetchone():
                 if row == 0:
                     cursor.execute("select count(id) from Route;")
@@ -72,7 +72,7 @@ while True:
                     for roww in cursor.fetchone():
                         idRoute = roww
             print(idRoute)
-            flightDataUrl = 'https://ru.flightaware.com/live/flight/DAL1127/history/20200323/1534Z/KIND/KATL/tracklog'
+            flightDataUrl = 'https://ru.flightaware.com/live/flight/AAL1045/history/20200318/2041Z/KSEA/KORD/tracklog'
             flightDataSource = requests.get(flightDataUrl)
             maintFlightDataText = flightDataSource.text
             flightDataSoup = BeautifulSoup(maintFlightDataText, 'html.parser')
@@ -106,9 +106,10 @@ while True:
                         altitude = "0"
                     latitude = data[1].text
                     longitude = data[2].text
+                    time_ = data[0].text
                     total_intensity = 0
-                    print (latitude + ' ' + longitude + ' ' + altitude + ' ' + str(number));
-                    cursor.execute("insert into DataFlight values("+latitude+","+longitude+","+altitude+","+str(total_intensity)+","+direction+","+str(idRoute)+","+str(number)+");")
+                    print (latitude + ' ' + longitude + ' ' + altitude + ' ' + str(number) + ' ' + time_)
+                    cursor.execute("insert into DataFlight values("+latitude+","+longitude+","+altitude+","+str(total_intensity)+","+direction+","+str(idRoute)+","+str(number)+",'"+time_+"');")
                     conn.commit()
                     number = number + 1
             print('\n')

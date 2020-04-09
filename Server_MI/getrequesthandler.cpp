@@ -43,6 +43,7 @@ QString GetRequestHandler::getDataFlightHendler()
             data["altitude"]=query->value(2).toInt();
             data["total_intensity"]=query->value(3).toInt();
             data["direction"]=query->value(4).toInt();
+            data["time"]=query->value(7).toString();
             dataArray.append(data);
 
         }

@@ -71,7 +71,7 @@ class AirPlane{
 			          this.radius = new Array(this.total.length);
 			          this.radius[this.curPos] = 7;
 			          let xhr = new XMLHttpRequest();
-			          xhr.open('GET', 'http://91.228.154.218:5555/dataflight.json?id='+this.id, false);
+			          xhr.open('GET', 'http://127.0.0.1:5555/dataflight.json?id='+this.id, false);
 			          
 			          try{
 			          	xhr.send();
@@ -87,7 +87,7 @@ class AirPlane{
 			          			this.latitudes.push(Number(routeData[i].latitude));
 			          			this.routePath.push(coords);
 			          			this.total.push(routeData[i].total_intensity);
-			          			this.labels.push(i);
+			          			this.labels.push(routeData[i].time);
 			          			this.directions.push(routeData[i].direction);
 			          			this.altitudes.push(routeData[i].altitude)
 			          		}
