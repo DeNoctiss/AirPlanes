@@ -34,7 +34,7 @@ while True:
             routeData = route.findAll('td')
             today = datetime.now()
             today = str(datetime.date(today))
-            today = '2020-03-18'
+            today = '2020-03-17'
             dateId = 0
             cursor.execute("select count(*) from Date where Date = "+ "'"+today+"';")
             for row in cursor.fetchone():
@@ -52,11 +52,11 @@ while True:
             print(dateId)
             print(routeData[2].text + '->' + routeData[3].text)
             from_ = routeData[2].text.replace("'",'')
-            from_ = 'SEATTLE, WA'
+            from_ = 'LONDON, UNITED KINGDOM'
             to_ = routeData[3].text.replace("'",'')
-            to_ = 'CHICAGO, IL'
+            to_ = 'MIAMI, FL'
             race = routeData[0].find('a').text
-            race = 'AAL1045'
+            race = 'AAL39'
             print(race)
             idRoute = 0
             cursor.execute("select count(id) from Route where race = '"+race+"' and date_id = "+str(dateId)+";")
@@ -72,7 +72,7 @@ while True:
                     for roww in cursor.fetchone():
                         idRoute = roww
             print(idRoute)
-            flightDataUrl = 'https://ru.flightaware.com/live/flight/AAL1045/history/20200318/2041Z/KSEA/KORD/tracklog'
+            flightDataUrl = 'https://ru.flightaware.com/live/flight/AAL39/history/20200317/0955Z/EGLL/KMIA/tracklog'
             flightDataSource = requests.get(flightDataUrl)
             maintFlightDataText = flightDataSource.text
             flightDataSoup = BeautifulSoup(maintFlightDataText, 'html.parser')
@@ -108,8 +108,11 @@ while True:
                     longitude = data[2].text
                     time_ = data[0].text
                     total_intensity = 0
+                    Bx = 0
+                    By = 0
+                    Bz = 0
                     print (latitude + ' ' + longitude + ' ' + altitude + ' ' + str(number) + ' ' + time_)
-                    cursor.execute("insert into DataFlight values("+latitude+","+longitude+","+altitude+","+str(total_intensity)+","+direction+","+str(idRoute)+","+str(number)+",'"+time_+"');")
+                    cursor.execute("insert into DataFlight values("+latitude+","+longitude+","+altitude+","+str(total_intensity)+","+direction+","+str(idRoute)+","+str(number)+",'"+time_+"',"+str(Bx)+","+str(By)+","+str(Bz)+");")
                     conn.commit()
                     number = number + 1
             print('\n')

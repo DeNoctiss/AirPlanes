@@ -55,7 +55,7 @@
     }
 
     #controlsContainer label{
-
+      font-size: 20px;
       font-weight: 700;
     }
 
@@ -93,15 +93,15 @@
       padding: 10px; /* отступы от границ внутри блока */
       text-align: left; /* выравнивание текста */
       margin-top: 50px;
-      -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
-      -moz-transition-duration: 0.3s;
-      -o-transition-duration: 0.3s;
-      transition-duration: 0.3s;
+      -webkit-transition-duration: 1s; /* анимационное выдвижение для всех браузеров*/
+      -moz-transition-duration: 1s;
+      -o-transition-duration: 1s;
+      transition-duration: 1s;
 
       -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
       -moz-border-radius: 0 5px 5px 0;
       border-radius: 0 5px 5px 0;
-      top: -700px;
+      top: -110vh;
       overflow-y: scroll;
     } 
 
@@ -120,7 +120,7 @@
     }
 
     .lable{
-      font-size: 18px;
+      font-size: 23px;
       color: rgb(0,0,0);
     }
 
@@ -275,12 +275,12 @@
       float: left;
     }
 
-    #listContainer {
+    #listContainer , #PlotListContainer{
       margin-left: 20px;
       float: left;
     }
 
-    #listContainer label:first-child{
+    #listContainer label:first-child, #PlotListContainer label:first-child{
       margin-right: 10px;
       line-height: 40px;
       float: left;
@@ -344,6 +344,17 @@
       <label>Flight:</label>
       <div class="selectContainer">
         <select id="selectBox" class="select-css">
+        </select>
+      </div>
+    </div>
+    <div id="PlotListContainer">
+      <label>Plot:</label>
+      <div class="selectContainer">
+        <select id="selectplot" class="select-css">
+          <option value="1">Bt</option>
+          <option value="2">Bx</option>
+          <option value="3">By</option>
+          <option value="4">Bz</option>
         </select>
       </div>
     </div>

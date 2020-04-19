@@ -44,8 +44,10 @@ QString GetRequestHandler::getDataFlightHendler()
             data["total_intensity"]=query->value(3).toInt();
             data["direction"]=query->value(4).toInt();
             data["time"]=query->value(7).toString();
+            data["Bx"]=query->value(8).toInt();
+            data["By"]=query->value(9).toInt();
+            data["Bz"]=query->value(10).toInt();
             dataArray.append(data);
-
         }
     }
     QJsonDocument doc;
@@ -59,6 +61,9 @@ QString GetRequestHandler::getTotal()
 {
     QString html ="";
     QJsonArray total;
+    QJsonArray x;
+    QJsonArray y;
+    QJsonArray z;
     QString idRoute = Request_->GetCgi("id");
     QString date = Request_->GetCgi("date");
     QSqlQuery* query = new QSqlQuery(*DB_);
@@ -86,18 +91,36 @@ QString GetRequestHandler::getTotal()
             QJsonObject obj = json.object();
             QJsonObject res = obj.value("geomagnetic-field-model-result").toObject();
             QJsonObject val = res.value("field-value").toObject();
-            QJsonObject tott = val.value("total-intensity").toObject();
-            int tot = tott.value("value").toInt();
+            QJsonObject tot_ = val.value("total-intensity").toObject();
+            QJsonObject Bx_ = val.value("north-intensity").toObject();
+            QJsonObject By_ = val.value("east-intensity").toObject();
+            QJsonObject Bz_ = val.value("vertical-intensity").toObject();
+            int tot = tot_.value("value").toInt();
+            int Bx = Bx_.value("value").toInt();
+            int By = By_.value("value").toInt();
+            int Bz = Bz_.value("value").toInt();
             QSqlQuery* qry = new QSqlQuery(*DB_);
-            qry->exec("update DataFlight set total_intensity ="+QString::number(tot)+" where latitude = "+latitude+" and longitude = "+longitude+" and altitude = "+altitude+" ;");
+            qry->exec("update DataFlight set total_intensity ="+QString::number(tot)+","+" Bx = "+QString::number(Bx)+","+" By = "+QString::number(By)+","+" Bz ="+QString::number(Bz)+" where latitude = "+latitude+" and longitude = "+longitude+" and altitude = "+altitude+" ;");
+            //qry->exec("update DataFlight set Bx ="+QString::number(Bx)+" where latitude = "+latitude+" and longitude = "+longitude+" and altitude = "+altitude+" ;");
+            //qry->exec("update DataFlight set By ="+QString::number(By)+" where latitude = "+latitude+" and longitude = "+longitude+" and altitude = "+altitude+" ;");
+            //qry->exec("update DataFlight set Bz ="+QString::number(Bz)+" where latitude = "+latitude+" and longitude = "+longitude+" and altitude = "+altitude+" ;");
             total.append(tot);
+            x.append(Bx);
+            y.append(By);
+            z.append(Bz);
             delete qry;
         }
     }
 
     delete query;
+    QJsonObject obj;
+    obj["Bt"]=total;
+    obj["Bx"]=x;
+    obj["By"]=y;
+    obj["Bz"]=z;
+    //obj["ans"]="ok";
     QJsonDocument doc;
-    doc.setArray(total);
+    doc.setObject(obj);
     return QString(doc.toJson());
 }
 

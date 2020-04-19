@@ -12,6 +12,9 @@ window.onload = function () {
       let chekcedInd = 0;
       let datePicker = document.getElementById('date');
       let lastDate = datePicker.value;
+      let anim = false;
+      let myInterval;
+      
 
       var map = new Map({
         basemap: "gray", 
@@ -28,6 +31,8 @@ window.onload = function () {
         zoom: 10
       });
 
+
+
       var graphicsLayer = new GraphicsLayer();
       map.add(graphicsLayer);
 
@@ -37,9 +42,25 @@ window.onload = function () {
       var checekdPlaneLayer = new GraphicsLayer();
       map.add(checekdPlaneLayer);
 
+      let selectPlot = document.getElementById('selectplot');
+      selectPlot.onchange = function(){
+          switch(this.options[selectplot.selectedIndex].innerHTML){
+            case 'Bt':
+              window.plotType = 1;
+              break;
+            case 'Bx':
+              window.plotType = 2;
+              break;
+            case 'By':
+              window.plotType = 3;
+              break;
+            case 'Bz':
+              window.plotType = 4;
+              break;
+          }
+      }
 
-
-
+      window.plotType=1;
 
       function clearInfo(){
         console.log(chekcedInd);
@@ -49,14 +70,14 @@ window.onload = function () {
         AirPlanes[chekcedInd].draw(graphicsLayer, pointGraphic);
         pathLayer.removeAll();
         checekdPlaneLayer.removeAll();
-        document.getElementById('hiddenMenu').style.top = '-700px';
+        document.getElementById('hiddenMenu').style.top = '-110vh';
 
       }
 
       function createRouteBlock(){
 
 
-        let list = document.querySelector('.select-css');
+        let list = document.getElementById('selectBox');
         let selectFlight = document.createElement('option');
         selectFlight.innerHTML = 'Select flight';
         list.appendChild(selectFlight);
@@ -115,8 +136,30 @@ window.onload = function () {
               let canvas = document.createElement('canvas');
               var ctx = canvas.getContext('2d');
               graf.appendChild(canvas);
-
               window.myLine = new Chart(ctx, config);
+
+              let selectPlot = document.getElementById('selectplot');
+              selectPlot.onchange = function(){
+                  switch(this.options[selectplot.selectedIndex].innerHTML){
+                    case 'Bt':
+                      window.plotType = 1;
+                      AirPlanes[chekcedInd].drawGraf();
+                      break;
+                    case 'Bx':
+                      window.plotType = 2;
+                      AirPlanes[chekcedInd].drawGraf();
+                      break;
+                    case 'By':
+                      window.plotType = 3;
+                      AirPlanes[chekcedInd].drawGraf();
+                      break;
+                    case 'Bz':
+                      window.plotType = 4;
+                      AirPlanes[chekcedInd].drawGraf();
+                      break;
+                  }
+              }
+
               let ind = this.options[selectBox.selectedIndex].value;
               console.log(ind);
               AirPlanes[ind].checked = true;
@@ -146,10 +189,10 @@ window.onload = function () {
                   csvContent += row + "\r\n";
                   row = 'landing'+','+AirPlanes[chekcedInd].to_;
                   csvContent += row + "\r\n";
-                  row = "time,latitude,longitude,altitude,total intensity\r\n";
+                  row = "time,latitude,longitude,altitude,total intensity, north intensity, east intensity, vertical intensity\r\n";
                   csvContent += row;
                 }
-                row = AirPlanes[chekcedInd].labels[j]+','+AirPlanes[chekcedInd].latitudes[j]+','+AirPlanes[chekcedInd].longitudes[j]+','+AirPlanes[chekcedInd].altitudes[j]+','+AirPlanes[chekcedInd].total[j];
+                row = AirPlanes[chekcedInd].labels[j]+','+AirPlanes[chekcedInd].latitudes[j]+','+AirPlanes[chekcedInd].longitudes[j]+','+AirPlanes[chekcedInd].altitudes[j]+','+AirPlanes[chekcedInd].total[j]+','+AirPlanes[chekcedInd].Bx[j]+','+AirPlanes[chekcedInd].By[j]+','+AirPlanes[chekcedInd].Bz[j];
                 csvContent += row + "\r\n";
               }
               var encodedUri = encodeURI(csvContent);
@@ -176,7 +219,7 @@ window.onload = function () {
         pathLayer.removeAll();
 
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://127.0.0.1:5555/routesDay.json?date='+datePicker.value, false);
+        xhr.open('GET', 'http://185.148.82.218:5555/routesDay.json?date='+datePicker.value, false);
         xhr.send();
         if(xhr.status != 200){
           alert( xhr.status + ': ' + xhr.statusText )
@@ -263,7 +306,6 @@ window.onload = function () {
                     clearInfo();
                   }
                   document.getElementById('hiddenMenu').style.top = '0px';
-                  document.getElementById('opt'+i).checked = true;
                   let toCSV = document.getElementById('toCSV');
 
                   let csvContent = "data:text/csv;charset=utf-8,";
@@ -273,10 +315,10 @@ window.onload = function () {
                     if(j==0){
                       row = AirPlanes[chekcedInd].from_+','+AirPlanes[chekcedInd].to_;
                       csvContent += row + "\r\n";
-                      row = "time,latitude,longitude,altitude,total intensity\r\n";
+                      row = "time,latitude,longitude,altitude,total intensity, north intensity, east intensity, vertical intensity\r\n";
                       csvContent += row;
                     }
-                    row = AirPlanes[chekcedInd].labels[j]+','+AirPlanes[chekcedInd].latitudes[j]+','+AirPlanes[chekcedInd].longitudes[j]+','+AirPlanes[chekcedInd].altitudes[j]+','+AirPlanes[chekcedInd].total[j];
+                    row = AirPlanes[chekcedInd].labels[j]+','+AirPlanes[chekcedInd].latitudes[j]+','+AirPlanes[chekcedInd].longitudes[j]+','+AirPlanes[chekcedInd].altitudes[j]+','+AirPlanes[chekcedInd].total[j]+','+AirPlanes[chekcedInd].Bx[j]+','+AirPlanes[chekcedInd].By[j]+','+AirPlanes[chekcedInd].Bz[j];
                     csvContent += row + "\r\n";
                   }
                   var encodedUri = encodeURI(csvContent);
@@ -290,24 +332,29 @@ window.onload = function () {
               
             });
 
-        let myInterval;
+        
         let animation = function(){
-          graphicsLayer.removeAll();
-          for(let i=0; i<AirPlanes.length; i++){
-            AirPlanes[i].next();
-            let pointGraphic = new Graphic();
-            AirPlanes[i].draw(graphicsLayer,pointGraphic);
+          if (anim == true){
+            graphicsLayer.removeAll();
+            for(let i=0; i<AirPlanes.length; i++){
+              AirPlanes[i].next();
+              let pointGraphic = new Graphic();
+              AirPlanes[i].draw(graphicsLayer,pointGraphic);
+            }
           }
+          
         }
 
         let btnStart = document.querySelector('.startBtn');
         btnStart.onclick = function(){
           if(this.classList.contains("startBtn")){
+            anim = true;
             this.classList.remove('startBtn');
             this.classList.add('stopBtn');
             myInterval = setInterval(animation,1000);
           }
           else {
+            anim = false;
             this.classList.add('startBtn');
             this.classList.remove('stopBtn');
             clearInterval(myInterval);
@@ -362,7 +409,14 @@ window.onload = function () {
       repaint();
       datePicker.onchange = function(){
         if(this.value != lastDate) {
-          console.log(chekcedInd);
+          if(anim == true){
+            anim = false;
+            let btnStart = document.querySelector('.stopBtn');
+            btnStart.classList.add('startBtn');
+            btnStart.classList.remove('stopBtn');
+            clearInterval(myInterval);
+          }
+          
           chekcedInd=0;
           lastDate = this.value;
           document.getElementById('selectBox').innerHTML='';
@@ -370,6 +424,8 @@ window.onload = function () {
           if(AirPlanes.length > 0){
             clearInfo();
           }
+
+          
           repaint();
         }
       }
