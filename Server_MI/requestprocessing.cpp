@@ -51,7 +51,7 @@ void RequestProcessing::GetRequest(){
     }
     else {
         long long length = response.length();
-        response ="HTTP/1.1 200 OK \r\nContent-Type: application/json\r\nContent-Length: "+QString::number(response.toLocal8Bit().size())+"\r\nAccept-Encoding: deflate, br \r\nAccess-Control-Allow-Origin: *\r\n\r\n " + response;
+        response ="HTTP/1.1 200 OK \r\nContent-Type: application/json\r\nAccept-Encoding: deflate, br \r\nAccess-Control-Allow-Origin: *\r\n\r\n " + response;
 
         Socket_->write(response.toLocal8Bit());
     }
