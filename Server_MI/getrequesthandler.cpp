@@ -35,7 +35,9 @@ QString GetRequestHandler::getDataFlightHendler()
     QJsonArray dataArray;
     QSqlQuery* query = new QSqlQuery(*DB_);
     QString idRoute = Request_->GetCgi("id");
-    if(query->exec("select * from DataFlight where id_route = "+ idRoute+" order by number;")){
+    QString limit = Request_->GetCgi("limit");
+    QString offset = Request_->GetCgi("offset");
+    if(query->exec("select * from DataFlight where id_route = "+ idRoute+" order by number limit "+limit+" offset "+offset+";")){
         while (query->next()) {
             QJsonObject data;
             data["latitude"]=query->value(0).toString();

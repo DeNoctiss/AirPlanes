@@ -57,120 +57,129 @@ class AirPlane{
 			          "http://s255477.smrtp.ru/345.png", //345
 			          "http://s255477.smrtp.ru/360.png"  //360
 			          ]
-			          this.curPos = 0;
-			          this.prevPos = 0;
-			          this.routePath = [];
-			          this.total = [];
-			          this.Bx = [];
-			          this.By = [];
-			          this.Bz = [];
-			          this.labels = [];
-			          this.directions = [];
-			          this.longitudes = [];
-			          this.latitudes = [];
-			          this.altitudes = [];
-			          this.position = new Array(this.total.length);
-			          this.position[this.curPos] = this.total[this.curPos];
-			          this.radius = new Array(this.total.length);
-			          this.radius[this.curPos] = 7;
-			          let xhr = new XMLHttpRequest();
-			          xhr.open('GET', 'http://185.148.82.218:5555/dataflight.json?id='+this.id, false);
+		this.curPos = 0;
+		this.prevPos = 0;
+		this.routePath = [];
+		this.total = [];
+		this.Bx = [];
+		this.By = [];
+		this.Bz = [];
+		this.labels = [];
+		this.directions = [];
+		this.longitudes = [];
+		this.latitudes = [];
+		this.altitudes = [];
+		this.position = new Array(this.total.length);
+		this.position[this.curPos] = this.total[this.curPos];
+		this.radius = new Array(this.total.length);
+		this.radius[this.curPos] = 7;
+		this.ready = false;
+		let xhr = new XMLHttpRequest();
+		let limit = 300;
+		let offset = 0;
+		while(this.ready!=true){
+			xhr.open('GET', 'http://185.148.82.218:5555/dataflight.json?id='+this.id+'&limit='+limit+'&offset='+offset, false);
+		try{
+			xhr.send();
+			if(xhr.status != 200){
+				alert( xhr.status + ': ' + xhr.statusText )
+			} else {
+				let routeData = JSON.parse(xhr.responseText);
+				for( let i=0; i<routeData.length; i++){
+					let coords = [];
+					coords.push(Number(routeData[i].longitude));
+					coords.push(Number(routeData[i].latitude));
+					this.longitudes.push(Number(routeData[i].longitude));
+					this.latitudes.push(Number(routeData[i].latitude));
+					this.routePath.push(coords);
+					this.total.push(routeData[i].total_intensity);
+					this.Bx.push(routeData[i].Bx);
+					this.By.push(routeData[i].By);
+					this.Bz.push(routeData[i].Bz);
+					this.labels.push(routeData[i].time);
+					this.directions.push(routeData[i].direction);
+					this.altitudes.push(routeData[i].altitude)
+				}
+				if (routeData.length < limit){
+					this.ready = true;
+				}
+				offset+=300;
+			}
+		} catch(e) { console.log(e); return;}
+		}
+		
 			          
-			          try{
-			          	xhr.send();
-			          	if(xhr.status != 200){
-			          		alert( xhr.status + ': ' + xhr.statusText )
-			          	} else {
-			          		let routeData = JSON.parse(xhr.responseText);
-			          		for( let i=0; i<routeData.length; i++){
-			          			let coords = [];
-			          			coords.push(Number(routeData[i].longitude));
-			          			coords.push(Number(routeData[i].latitude));
-			          			this.longitudes.push(Number(routeData[i].longitude));
-			          			this.latitudes.push(Number(routeData[i].latitude));
-			          			this.routePath.push(coords);
-			          			this.total.push(routeData[i].total_intensity);
-			          			this.Bx.push(routeData[i].Bx);
-			          			this.By.push(routeData[i].By);
-			          			this.Bz.push(routeData[i].Bz);
-			          			this.labels.push(routeData[i].time);
-			          			this.directions.push(routeData[i].direction);
-			          			this.altitudes.push(routeData[i].altitude)
-			          		}
-			          	}
-			          } catch(e) { console.log(e); return;}
-			          
 
 
-			      }
+	}
 
-	      showInfo(){
-	      	let race = document.getElementById('raceValue');
-	      	race.innerHTML = this.race;
-	      	console.log(this.id);
+		showInfo(){
+			let race = document.getElementById('raceValue');
+			race.innerHTML = this.race;
+			console.log(this.id);
 
-	      	let latitude = document.getElementById('latitude');
-	      	latitude.innerHTML = this.latitudes[this.curPos];
+			let latitude = document.getElementById('latitude');
+			latitude.innerHTML = this.latitudes[this.curPos];
 
-	      	let longitude = document.getElementById('longitude');
-	      	longitude.innerHTML = this.longitudes[this.curPos];
+			let longitude = document.getElementById('longitude');
+			longitude.innerHTML = this.longitudes[this.curPos];
 
-	      	let altitude = document.getElementById('altitude');
-	      	altitude.innerHTML = this.altitudes[this.curPos];
+			let altitude = document.getElementById('altitude');
+			altitude.innerHTML = this.altitudes[this.curPos];
 
-	      	let total = document.getElementById('total');
-	      	total.innerHTML = this.total[this.curPos];
+			let total = document.getElementById('total');
+			total.innerHTML = this.total[this.curPos];
 
-	      	let takeoff = document.getElementById('takeoffValue');
-	      	takeoff.innerHTML = this.from_;
+			let takeoff = document.getElementById('takeoffValue');
+			takeoff.innerHTML = this.from_;
 
-	      	let landing = document.getElementById('landingValue');
-	      	landing.innerHTML = this.to_;
-	      }
+			let landing = document.getElementById('landingValue');
+			landing.innerHTML = this.to_;
+		}
 
-	      drawGraf(){
-	      	var position = new Array(this.total.length);
-	      	position[this.curPos] = this.total[this.curPos];
+		drawGraf(){
+			var position = new Array(this.total.length);
+			position[this.curPos] = this.total[this.curPos];
 
-	      	var radius = new Array(this.total.length);
-	      	radius[this.curPos] = 7;
+			var radius = new Array(this.total.length);
+			radius[this.curPos] = 7;
 
-	      	window.myLine.config.data.labels = this.labels;
-	      	window.myLine.config.data.datasets[1].data = [];
+			window.myLine.config.data.labels = this.labels;
+			window.myLine.config.data.datasets[1].data = [];
 
-	      	switch(window.plotType){
-	      		case 1:
-	      			window.myLine.config.data.datasets[0].label = 'Total-intensity';
-	      			window.myLine.config.data.datasets[1].label = 'Current total-intensity';
-	      			window.myLine.config.options.title.text = 'Total-intensity';
-	      			window.myLine.config.data.datasets[0].data = this.total;
-	      			window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
-	      			break;
-	      		case 2:
-	      			window.myLine.config.data.datasets[0].label = 'North-intensity';
-	      			window.myLine.config.data.datasets[1].label = 'Current north-intensity';
-	      			window.myLine.config.options.title.text = 'North-intensity';
-	      			window.myLine.config.data.datasets[0].data = this.Bx;
-			      	window.myLine.config.data.datasets[1].data[this.curPos] = this.Bx[this.curPos];
-	    			break;
-	    		case 3:
-	    			window.myLine.config.data.datasets[0].label = 'East-intensity';
-	      			window.myLine.config.data.datasets[1].label = 'Current east-intensity';
-	      			window.myLine.config.options.title.text = 'East-intensity';
-	    			window.myLine.config.data.datasets[0].data = this.By;
-	      			window.myLine.config.data.datasets[1].data[this.curPos] = this.By[this.curPos];
-	      			break;
-	      		case 4:
-	      			window.myLine.config.data.datasets[0].label = 'Vertical-intensity';
-	      			window.myLine.config.data.datasets[1].label = 'Current verical-intensity';
-	      			window.myLine.config.options.title.text = 'Vertical-intensity';
-	      			window.myLine.config.data.datasets[0].data = this.Bz;
-	      			window.myLine.config.data.datasets[1].data[this.curPos] = this.Bz[this.curPos];
-	      			break;
-	      	}
+			switch(window.plotType){
+				case 1:
+					window.myLine.config.data.datasets[0].label = 'Total-intensity';
+					window.myLine.config.data.datasets[1].label = 'Current total-intensity';
+					window.myLine.config.options.title.text = 'Total-intensity';
+					window.myLine.config.data.datasets[0].data = this.total;
+					window.myLine.config.data.datasets[1].data[this.curPos] = this.total[this.curPos];
+					break;
+				case 2:
+					window.myLine.config.data.datasets[0].label = 'North-intensity';
+					window.myLine.config.data.datasets[1].label = 'Current north-intensity';
+					window.myLine.config.options.title.text = 'North-intensity';
+					window.myLine.config.data.datasets[0].data = this.Bx;
+		      	window.myLine.config.data.datasets[1].data[this.curPos] = this.Bx[this.curPos];
+				break;
+			case 3:
+				window.myLine.config.data.datasets[0].label = 'East-intensity';
+					window.myLine.config.data.datasets[1].label = 'Current east-intensity';
+					window.myLine.config.options.title.text = 'East-intensity';
+				window.myLine.config.data.datasets[0].data = this.By;
+					window.myLine.config.data.datasets[1].data[this.curPos] = this.By[this.curPos];
+					break;
+				case 4:
+					window.myLine.config.data.datasets[0].label = 'Vertical-intensity';
+					window.myLine.config.data.datasets[1].label = 'Current verical-intensity';
+					window.myLine.config.options.title.text = 'Vertical-intensity';
+					window.myLine.config.data.datasets[0].data = this.Bz;
+					window.myLine.config.data.datasets[1].data[this.curPos] = this.Bz[this.curPos];
+					break;
+			}
 
-	      	window.myLine.update();
-	      }
+			window.myLine.update();
+		}
 
 
 
