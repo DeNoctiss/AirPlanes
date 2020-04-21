@@ -2,7 +2,7 @@
 
 Server::Server(QObject* parent): QTcpServer (parent), ThreadPool(new QThreadPool(this))
 {
-    ThreadPool->setMaxThreadCount(1);
+    ThreadPool->setMaxThreadCount(4);
     //qDebug() << ThreadPool->maxThreadCount();
     DB_= QSqlDatabase::addDatabase("QSQLITE");
     DB_.setDatabaseName("AirPlane");
