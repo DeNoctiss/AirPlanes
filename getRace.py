@@ -168,7 +168,7 @@ def insertToDB(cursor,data,date,from_,to_,race,conn,urls):
 while True:
 	print('parse')
 	urls = []
-	conn = sqlite3.connect ("/home/denoctis/Projects/AirPlanes/build-Server_MI-unknown-Release/AirPlane")
+	conn = sqlite3.connect ("/root/AirPlanes/build-Server_MI-unknown-Release/AirPlane")
 	cursor = conn.cursor()
 	cursor.execute('BEGIN')
 	getData(readFile('race.txt'),cursor,conn,urls)
