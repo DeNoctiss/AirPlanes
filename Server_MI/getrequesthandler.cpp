@@ -149,6 +149,41 @@ QString GetRequestHandler::getRoutesDay()
     return  QString(doc.toJson());
 }
 
+QString GetRequestHandler::getDates()
+{
+    QJsonArray disableDate;
+    QVector<QDateTime> dates;
+    QSqlQuery* query = new QSqlQuery(*DB_);
+    if(query->exec("select date from date order by date;")){
+        while (query->next()) {
+            QString date = query->value(0).toString();
+            dates.append(QDateTime::fromString(date,"yyyy-MM-dd"));
+        }
+    }
+    QDateTime first = dates[0].addDays(1);
+    QDateTime last = dates[dates.size()-1];
+    while (first < last) {
+        bool f=true;
+        for(size_t i=0; i<dates.size();i++){
+            if (first==dates[i]) {
+                f=false;
+            }
+        }
+        if(f){
+            disableDate.append(first.toString("yyyy-MM-dd"));
+        }
+        first=first.addDays(1);
+    }
+    QJsonObject obj;
+    obj["disableDate"]=disableDate;
+    obj["first"]=dates[0].toString("yyyy-MM-dd");
+    obj["last"]=last.toString("yyyy-MM-dd");
+    QJsonDocument doc;
+    doc.setObject(obj);
+    delete query;
+    return QString(doc.toJson());
+}
+
 QString GetRequestHandler::test()
 {
     QJsonArray tests;

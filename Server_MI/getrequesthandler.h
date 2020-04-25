@@ -23,6 +23,7 @@ public:
     QString getDataFlightHendler();
     QString getTotal();
     QString getRoutesDay();
+    QString getDates();
     QString test();
 
 private slots:

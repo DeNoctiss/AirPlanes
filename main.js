@@ -219,7 +219,7 @@ window.onload = function () {
         pathLayer.removeAll();
 
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://185.148.82.218:5555/routesDay.json?date='+datePicker.value, false);
+        xhr.open('GET', 'http://127.0.0.1:5555/routesDay.json?date='+datePicker.value, false);
         xhr.send();
         if(xhr.status != 200){
           alert( xhr.status + ': ' + xhr.statusText )
