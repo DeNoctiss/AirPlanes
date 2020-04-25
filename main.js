@@ -228,7 +228,7 @@ window.onload = function () {
 
           AirPlanes = [];
           for(let i=0; i<routes.length; i++){
-            let AirPlane_ = new AirPlane(routes[i].id, routes[i].race, routes[i].from, routes[i].to, checekdPlaneLayer);
+            let AirPlane_ = new AirPlane(routes[i].id, routes[i].race, routes[i].from, routes[i].to, checekdPlaneLayer, routes[i].date);
             AirPlanes.push(AirPlane_);
 
           }

@@ -1,11 +1,12 @@
 class AirPlane{
-	constructor(id, race, from_, to_, checkLayer_){
+	constructor(id, race, from_, to_, checkLayer_, date_){
 		this.checked = false;
 		this.id = id;
 		this.race = race;
 		this.from_ = from_;
 		this.to_ = to_;
-		this.checkLayer= checkLayer_
+		this.checkLayer= checkLayer_;
+		this.date = date_;
 		this.radiusCheck = {
 			2: 4.32,
 			3: 2.55,
@@ -89,6 +90,7 @@ class AirPlane{
 					let coords = [];
 					coords.push(Number(routeData[i].longitude));
 					coords.push(Number(routeData[i].latitude));
+					coords.push(i+1);
 					this.longitudes.push(Number(routeData[i].longitude));
 					this.latitudes.push(Number(routeData[i].latitude));
 					this.routePath.push(coords);
@@ -107,6 +109,8 @@ class AirPlane{
 			}
 		} catch(e) { console.log(e); return;}
 		}
+
+		
 		
 			          
 
@@ -114,6 +118,8 @@ class AirPlane{
 	}
 
 		showInfo(){
+			
+
 			let race = document.getElementById('raceValue');
 			race.innerHTML = this.race;
 			console.log(this.id);
@@ -226,7 +232,10 @@ class AirPlane{
 	pathDraw(polylineGraphic,pathLayer){
 		var polyline = {
 	        type: "polyline", // autocasts as new Polyline()
-	        paths: this.routePath
+	        paths: this.routePath,
+	        hasZ: false,
+	        hasM: true,
+	        spatialReference: { wkid: 4326 }
 	    };
 
 	    let lineSymbol = {

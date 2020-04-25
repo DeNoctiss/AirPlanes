@@ -14,7 +14,7 @@ void RequestProcessing::run(){
     //Socket_->disconnectFromHost();
     Socket_->close();
     Socket_->deleteLater();
-    //delete Socket_;
+    delete Socket_;
 }
 
 
@@ -46,6 +46,8 @@ void RequestProcessing::GetRequest(){
         response=handler.getRoutesDay();
     if(Request_->GetPath()=="/dates.json")
         response=handler.getDates();
+    if(Request_->GetPath()=="/check.json")
+        response=handler.check();
     if(response.isEmpty()){
         Socket_->write("HTTP/1.1 404 \r\n\r\nBad request");
     }

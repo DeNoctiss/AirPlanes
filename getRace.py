@@ -5,6 +5,7 @@ import sqlite3
 from datetime import datetime
 import time
 import math
+import requests
 
 def readFile(file):
 	data = []
@@ -13,11 +14,10 @@ def readFile(file):
 		data.append(line.rstrip())
 	return data
 
-def getData(race,cursor,conn):
+def getData(race,cursor,conn,urls):
 	allData = []
 	count = 0
 	for race_ in race:
-		print(race_)
 		if count == 100:
 			count = 0
 			time.sleep(3600)
@@ -43,12 +43,12 @@ def getData(race,cursor,conn):
 
 			dataFlight = getDataFlight('https://flightaware.com'+link+'/tracklog')
 			allData.append((dataFlight,date,from_,to_,race_))
+			count = count + 1
 	for dataFlight in allData:
-		chekData(dataFlight[0],dataFlight[1],dataFlight[2],dataFlight[3],dataFlight[4],cursor,conn)
+		chekData(dataFlight[0],dataFlight[1],dataFlight[2],dataFlight[3],dataFlight[4],cursor,conn,urls)
 
 
 def getDataFlight(link):
-	print('get')
 	dataFlight = []
 	flightDataUrl = link
 	flightDataSource = requests.get(flightDataUrl)
@@ -62,7 +62,6 @@ def getDataFlight(link):
 		row = []
 		tds = dataRow.findAll('td');
 		data = dataRow.findAll('span', {'class': 'show-for-medium-up'})
-		print('data')
 		if len(data) == 5:
 			direction = tds[3].text.split(' ')[1]
 			direction = direction[:-1:]
@@ -98,7 +97,7 @@ def getDataFlight(link):
 			number = number + 1
 	return dataFlight
 
-def chekData(data,date,from_,to_,race,cursor,conn):
+def chekData(data,date,from_,to_,race,cursor,conn,urls):
 	count = 0
 	begin = -1
 	end = -1
@@ -134,7 +133,7 @@ def chekData(data,date,from_,to_,race,cursor,conn):
 			begin = -1
 			end = -1
 			count = 0
-	insertToDB(cursor,data,date,from_,to_,race,conn)
+	insertToDB(cursor,data,date,from_,to_,race,conn,urls)
 
 def chekRoute(date,race,cursor,conn):
 	cursor.execute("select id from date where date = '"+str(date)+"';")
@@ -143,7 +142,7 @@ def chekRoute(date,race,cursor,conn):
 		cursor.execute("select max(id) from date;")
 		idDate = cursor.fetchone()[0]+1
 		cursor.execute("insert into Date values("+str(idDate)+",'"+str(date)+"');")
-		conn.commit()
+		#conn.commit()
 		return False
 	else:
 		idDate = idDate[0][0]
@@ -153,26 +152,28 @@ def chekRoute(date,race,cursor,conn):
 		else:
 			return True
 
-def insertToDB(cursor,data,date,from_,to_,race,conn):
-	print('insert')
+def insertToDB(cursor,data,date,from_,to_,race,conn,urls):
 	cursor.execute("select max(id) from Route;")
 	idRoute = cursor.fetchone()[0]+1
 	cursor.execute("select id from date where date = '"+str(date)+"';")
 	idDate = cursor.fetchone()[0]
 	#print('insert Route')
 	cursor.execute("insert into Route values("+str(idRoute)+",'"+str(race)+"','"+str(from_)+"','"+str(to_)+"',"+str(idDate)+");")
-	conn.commit()
+	#conn.commit()
 	#print('insert DataFlight')
 	for d in data:
 		cursor.execute("insert into DataFlight values("+str(d[0])+","+str(d[1])+","+str(d[2])+","+str(d[3])+","+str(d[4])+","+str(idRoute)+","+str(d[5])+",'"+str(d[6])+"',"+str(d[7])+","+str(d[8])+","+str(d[9])+");")
-		conn.commit()
+	urls.append("http://127.0.0.1:5555/total.json?id="+str(idRoute)+"&date="+str(date))
 
 
 while True:
 	print('parse')
+	urls = []
 	conn = sqlite3.connect ("/home/denoctis/Projects/AirPlanes/build-Server_MI-unknown-Release/AirPlane")
 	cursor = conn.cursor()
-	getData(readFile('race.txt'),cursor,conn)
+	cursor.execute('BEGIN')
+	getData(readFile('race.txt'),cursor,conn,urls)
+	conn.commit()
 	conn.close()
 	print('end parse')
-	time.sleep(3600*24)
+	time.sleep(86400)

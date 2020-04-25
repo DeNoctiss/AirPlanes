@@ -24,6 +24,7 @@ public:
     QString getTotal();
     QString getRoutesDay();
     QString getDates();
+    QString check();
     QString test();
 
 private slots:
