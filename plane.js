@@ -79,7 +79,7 @@ class AirPlane{
 		let limit = 300;
 		let offset = 0;
 		while(this.ready!=true){
-			xhr.open('GET', 'http://127.0.0.1:5555/dataflight.json?id='+this.id+'&limit='+limit+'&offset='+offset, false);
+			xhr.open('GET', 'http://185.148.82.218:5555/dataflight.json?id='+this.id+'&limit='+limit+'&offset='+offset, false);
 		try{
 			xhr.send();
 			if(xhr.status != 200){

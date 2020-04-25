@@ -163,7 +163,6 @@ def insertToDB(cursor,data,date,from_,to_,race,conn,urls):
 	#print('insert DataFlight')
 	for d in data:
 		cursor.execute("insert into DataFlight values("+str(d[0])+","+str(d[1])+","+str(d[2])+","+str(d[3])+","+str(d[4])+","+str(idRoute)+","+str(d[5])+",'"+str(d[6])+"',"+str(d[7])+","+str(d[8])+","+str(d[9])+");")
-	urls.append("http://127.0.0.1:5555/total.json?id="+str(idRoute)+"&date="+str(date))
 
 
 while True:
